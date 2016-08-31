@@ -1,4 +1,4 @@
-package usf.java.sqlreflect.client.service;
+package usf.java.sqlreflect.client;
 
 import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.mapper.Mapper;

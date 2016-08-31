@@ -10,6 +10,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import usf.java.sqlreflect.client.CustomAdapter;
+import usf.java.sqlreflect.client.Response;
 import usf.java.sqlreflect.connection.User;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.connection.manager.SimpleConnectionManager;
@@ -33,7 +35,7 @@ import usf.java.sqlreflect.reflect.scanner.TableScanner;
 import usf.java.sqlreflect.server.Server;
 
 @Path("")
-public class Test {
+public class ConsultService {
 
 	private static ConnectionManager cm;
 
@@ -167,7 +169,7 @@ public class Test {
 	static { // user context listner
 		try {
 
-			InputStream inputStream  = Test.class.getClassLoader().getResourceAsStream("env.properties");
+			InputStream inputStream  = ConsultService.class.getClassLoader().getResourceAsStream("env.properties");
 			Properties properties = new Properties();
 			properties.load(inputStream);
 			
