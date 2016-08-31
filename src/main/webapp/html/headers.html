@@ -46,7 +46,7 @@
 				<td>{{action.name}}</td>
 				<td ng-bind="action.start|date:'HH:mm:ss:sss'"></td>
 				<td ng-bind="action.end|date:'HH:mm:ss:sss'"></td>
-				<td>{{action.end - action.start}}ms</td>
+				<td style="text-align:right;">{{action.end - action.start}} ms</td>
 			</tr>
 		</table>
 	</div>
