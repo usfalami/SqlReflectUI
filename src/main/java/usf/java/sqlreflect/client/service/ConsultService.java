@@ -12,14 +12,12 @@ import javax.ws.rs.core.MediaType;
 
 import usf.java.sqlreflect.client.CustomAdapter;
 import usf.java.sqlreflect.client.Response;
-import usf.java.sqlreflect.connection.User;
 import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.connection.manager.SimpleConnectionManager;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
 import usf.java.sqlreflect.field.Column;
 import usf.java.sqlreflect.field.Database;
-import usf.java.sqlreflect.field.Env;
 import usf.java.sqlreflect.field.Header;
 import usf.java.sqlreflect.field.Procedure;
 import usf.java.sqlreflect.field.Row;
@@ -32,7 +30,9 @@ import usf.java.sqlreflect.reflect.scanner.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.ProcedureScanner;
 import usf.java.sqlreflect.reflect.scanner.RowScanner;
 import usf.java.sqlreflect.reflect.scanner.TableScanner;
+import usf.java.sqlreflect.server.Env;
 import usf.java.sqlreflect.server.Server;
+import usf.java.sqlreflect.server.User;
 
 @Path("")
 public class ConsultService {
