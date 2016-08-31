@@ -52,9 +52,8 @@ public class Test {
 		Response<Database> res = new Response<Database>();
 		CustomAdapter<Database> adapter = new CustomAdapter<Database>();
 		try {
-			res.setColumns(Arrays.asList(adapter.getMapper().getColumnNames()));
 			new DatabaseScanner(cm).run(adapter);
-			
+
 			res.setColumns(Arrays.asList(adapter.getMapper().getColumnNames()));
 			res.setList(adapter.getList());
 			res.setTimePerform(adapter.getTime());
