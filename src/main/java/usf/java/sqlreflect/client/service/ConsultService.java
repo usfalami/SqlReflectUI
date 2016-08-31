@@ -30,6 +30,7 @@ import usf.java.sqlreflect.reflect.scanner.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.ProcedureScanner;
 import usf.java.sqlreflect.reflect.scanner.RowScanner;
 import usf.java.sqlreflect.reflect.scanner.TableScanner;
+import usf.java.sqlreflect.reflect.scanner.TableType;
 import usf.java.sqlreflect.server.Env;
 import usf.java.sqlreflect.server.Server;
 import usf.java.sqlreflect.server.User;
@@ -66,6 +67,24 @@ public class ConsultService {
 		CustomAdapter<Table> adapter = new CustomAdapter<Table>();
 		try {
 			new TableScanner(cm).set(databasePattern, tablePattern, false).run(adapter);
+			res = adaptToReponse(adapter);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
+	
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Path("vues")
+	public Response<Table> getVues(
+			@QueryParam("databasePattern") String databasePattern,  
+			@QueryParam("vuePattern") String vuePattern){
+		System.out.println("TABLES : " + "databasePattern="+databasePattern + " & vuePattern=" + vuePattern);
+		Response<Table> res = new Response<Table>();
+		CustomAdapter<Table> adapter = new CustomAdapter<Table>();
+		try {
+			new TableScanner(cm, TableType.VIEW).set(databasePattern, vuePattern, false).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();

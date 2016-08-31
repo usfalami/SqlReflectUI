@@ -18,6 +18,10 @@ angular.module('app')
 	when('/tables', {
 		templateUrl: 'html/tables.html', controller: 'consult'
 	}).
+	
+	when('/vues', {
+		templateUrl: 'html/vues.html', controller: 'consult'
+	}).
 
 	when('/procedures', {
 		templateUrl: 'html/procedures.html', controller: 'consult'
