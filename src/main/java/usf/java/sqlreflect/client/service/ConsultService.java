@@ -48,10 +48,7 @@ public class ConsultService {
 		CustomAdapter<Database> adapter = new CustomAdapter<Database>();
 		try {
 			new DatabaseScanner(cm).run(adapter);
-
-			res.setColumns(Arrays.asList(adapter.getMapper().getColumnNames()));
-			res.setList(adapter.getList());
-			res.setTimePerform(adapter.getTime());
+			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -69,10 +66,7 @@ public class ConsultService {
 		CustomAdapter<Table> adapter = new CustomAdapter<Table>();
 		try {
 			new TableScanner(cm).set(databasePattern, tablePattern, false).run(adapter);
-			
-			res.setColumns(Arrays.asList(adapter.getMapper().getColumnNames()));
-			res.setList(adapter.getList());
-			res.setTimePerform(adapter.getTime());
+			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -90,10 +84,7 @@ public class ConsultService {
 		CustomAdapter<Procedure> adapter = new CustomAdapter<Procedure>();
 		try {
 			new ProcedureScanner(cm).set(databasePattern, procedurePattern, false).run(adapter);
-			
-			res.setColumns(Arrays.asList(adapter.getMapper().getColumnNames()));
-			res.setList(adapter.getList());
-			res.setTimePerform(adapter.getTime());
+			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -116,10 +107,7 @@ public class ConsultService {
 			HasColumn parent = HasColumn.valueOf(columnParent);
 			if(parent != null) {
 				new ColumnScanner(cm, parent).set(databasePattern, parentPattern, columnPattern).run(adapter);
-				
-				res.setColumns(Arrays.asList(adapter.getMapper().getColumnNames()));
-				res.setList(adapter.getList());
-				res.setTimePerform(adapter.getTime());
+				res = adaptToReponse(adapter);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -136,10 +124,7 @@ public class ConsultService {
 		CustomAdapter<Row> adapter = new CustomAdapter<Row>();
 		try {
 			new RowScanner<Row>(cm, new RowMapper()).set(query).run(adapter);
-			
-			res.setColumns(Arrays.asList(adapter.getMapper().getColumnNames()));
-			res.setList(adapter.getList());
-			res.setTimePerform(adapter.getTime());
+			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -155,16 +140,20 @@ public class ConsultService {
 		CustomAdapter<Header> adapter = new CustomAdapter<Header>();
 		try {
 			new HeaderScanner(cm).set(query).run(adapter);
-			
-			res.setColumns(Arrays.asList(adapter.getMapper().getColumnNames()));
-			res.setList(adapter.getList());
-			res.setTimePerform(adapter.getTime());
+			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return res;
 	}
 	
+	private <T> Response<T> adaptToReponse(CustomAdapter<T> adapter) {
+		Response<T> res = new Response<T>();
+		res.setColumns(Arrays.asList(adapter.getMapper().getColumnNames()));
+		res.setList(adapter.getList());
+		res.setTimePerform(adapter.getTime());
+		return res;
+	}
 
 	static { // user context listner
 		try {
