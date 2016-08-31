@@ -35,7 +35,6 @@ import usf.java.sqlreflect.server.Server;
 @Path("")
 public class Test {
 
-	private static ConnectionProvider cp;
 	private static ConnectionManager cm;
 
 	@GET
@@ -179,7 +178,7 @@ public class Test {
 			Env env = new Env(properties);
 			User user = new User(properties);
 
-			cp = new SimpleConnectionProvider(server, env);
+			ConnectionProvider cp = new SimpleConnectionProvider(server, env);
 			cm = new SimpleConnectionManager(cp, server, user);
 			
 		} catch (Exception e) {
