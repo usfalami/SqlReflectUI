@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+	<h1>Columns</h1>
+	<form ng-submit="submit('service/columns')">
+		<div>
+			<label>Database pattern</label> <input type="text" ng-model="data.databasePattern">
+		</div>
+		<div>
+			<select ng-model="data.columnParent">
+				<option>TABLE</option>
+				<option>PROCEDURE</option>
+			</select>
+ 			<input type="text" ng-model="data.parentPattern">
+		</div>
+		<div>
+			<label>Column pattern</label> <input type="text" ng-model="data.columnPattern">
+		</div>
+		<input type="submit" ng-disabled="searching">
+	</form>
+
+	<div ng-show="rows">
+		<h3>Résults ({{perf.rowCount}})</h3>
+		<table border="1">
+			<tr>
+				<th ng-repeat="h in head" ng-bind="h"></th>
+			</tr>
+			<tr ng-repeat="r in rows">
+				<td ng-bind="r.name"></td>
+				<td ng-bind="r.valueType"></td>
+				<td ng-bind="r.size"></td>
+			</tr>
+		</table>
+	</div>
+	<div ng-show="perf">
+		<h3>Time</h3>
+		<table border="1">
+			<tr>
+				<th>Action</th>
+				<th>Start</th>
+				<th>End</th>
+				<th>Duration</th>
+			</tr>
+			<tr ng-repeat="action in perf.times">
+				<td>{{action.name}}</td>
+				<td ng-bind="action.start|date:'HH:mm:ss:sss'"></td>
+				<td ng-bind="action.end|date:'HH:mm:ss:sss'"></td>
+				<td>{{action.end - action.start}}ms</td>
+			</tr>
+		</table>
+	</div>
+	
+</body>
+
+</html>

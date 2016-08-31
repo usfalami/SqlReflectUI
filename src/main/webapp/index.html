@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/route.js"></script>
+    
+</head>
+<body>
+	
+	<div ng-app = "app">
+		<div>
+			<a ng-href="#databases">Databases</a><i>|</i>
+			<a ng-href="#tables">Tables</a><i>|</i>
+			<a ng-href="#procedures">Procedures</a><i>|</i>
+			<a ng-href="#columns">Columns</a><i>|</i>
+			<a ng-href="#rows">Rows</a><i>|</i>
+			<a ng-href="#headers">Headers</a><i>|</i>
+		</div>
+		<div ng-view></div>
+	</div>
+
+</body>
+</html>
