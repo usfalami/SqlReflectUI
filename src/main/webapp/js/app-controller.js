@@ -4,7 +4,7 @@
 
 angular.module('app')
 
-.controller('crt1', function($scope, $http){
+.controller('consult', function($scope, $http){
 	$scope.data = {};
 
 	$scope.submit = function(uri){

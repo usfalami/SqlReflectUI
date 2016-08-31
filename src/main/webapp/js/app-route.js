@@ -8,31 +8,31 @@ angular.module('app')
 	$routeProvider.
 
 	when('/home', {
-		templateUrl: 'html/home.html', controller: 'crt1'
+		templateUrl: 'html/home.html', controller: 'consult'
 	}).
 	
 	when('/databases', {
-		templateUrl: 'html/databases.html', controller: 'crt1'
+		templateUrl: 'html/databases.html', controller: 'consult'
 	}).
 
 	when('/tables', {
-		templateUrl: 'html/tables.html', controller: 'crt1'
+		templateUrl: 'html/tables.html', controller: 'consult'
 	}).
 
 	when('/procedures', {
-		templateUrl: 'html/procedures.html', controller: 'crt1'
+		templateUrl: 'html/procedures.html', controller: 'consult'
 	}).
 
 	when('/columns', {
-		templateUrl: 'html/columns.html', controller: 'crt1'
+		templateUrl: 'html/columns.html', controller: 'consult'
 	}).
 	
 	when('/rows', {
-		templateUrl: 'html/rows.html', controller: 'crt1'
+		templateUrl: 'html/rows.html', controller: 'consult'
 	}).
 
 	when('/headers', {
-		templateUrl: 'html/headers.html', controller: 'crt1'
+		templateUrl: 'html/headers.html', controller: 'consult'
 	}).
 	
 	otherwise({

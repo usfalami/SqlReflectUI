@@ -31,15 +31,9 @@ import usf.java.sqlreflect.reflect.scanner.ProcedureScanner;
 import usf.java.sqlreflect.reflect.scanner.RowScanner;
 import usf.java.sqlreflect.reflect.scanner.TableScanner;
 import usf.java.sqlreflect.server.Server;
-import usf.java.sqlreflect.server.TeradataServer;
 
 @Path("")
 public class Test {
-
-	private static Server server = new TeradataServer();
-
-	private static Env env;
-	private static User user;
 
 	private static ConnectionProvider cp;
 	private static ConnectionManager cm;
@@ -173,14 +167,17 @@ public class Test {
 
 	static { // user context listner
 		try {
-			Class.forName(server.getDriver());
-			
+
 			InputStream inputStream  = Test.class.getClassLoader().getResourceAsStream("env.properties");
 			Properties properties = new Properties();
 			properties.load(inputStream);
 			
-			env = new Env(properties);
-			user = new User(properties);
+			Server server = (Server) Class.forName(properties.getProperty("server")).newInstance();
+			
+			Class.forName(server.getDriver());
+			
+			Env env = new Env(properties);
+			User user = new User(properties);
 
 			cp = new SimpleConnectionProvider(server, env);
 			cm = new SimpleConnectionManager(cp, server, user);
