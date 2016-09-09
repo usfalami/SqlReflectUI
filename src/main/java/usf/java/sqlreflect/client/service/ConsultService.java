@@ -188,8 +188,8 @@ public class ConsultService {
 			Env env = new Env(properties);
 			User user = new User(properties);
 
-			ConnectionProvider cp = new SimpleConnectionProvider(server, env);
-			cm = new SimpleConnectionManager(cp, server, user);
+			ConnectionProvider cp = new SimpleConnectionProvider(server, env, user);
+			cm = new SimpleConnectionManager(cp);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
