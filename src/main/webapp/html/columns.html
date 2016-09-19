@@ -28,7 +28,10 @@
 				<th ng-repeat="h in head" ng-bind="h"></th>
 			</tr>
 			<tr ng-repeat="r in rows">
+				<td ng-bind="r.databaseName"></td>
+				<td ng-bind="r.sourceName"></td>
 				<td ng-bind="r.name"></td>
+				<td ng-bind="r.sqlType"></td>
 				<td ng-bind="r.valueType"></td>
 				<td ng-bind="r.size"></td>
 				<td ng-bind="r.type"></td><!-- only for procedures -->
