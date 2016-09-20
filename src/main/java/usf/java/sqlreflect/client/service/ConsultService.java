@@ -16,21 +16,21 @@ import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.connection.manager.SimpleConnectionManager;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
-import usf.java.sqlreflect.field.Column;
-import usf.java.sqlreflect.field.Database;
-import usf.java.sqlreflect.field.Header;
-import usf.java.sqlreflect.field.Procedure;
-import usf.java.sqlreflect.field.Row;
-import usf.java.sqlreflect.field.Table;
+import usf.java.sqlreflect.item.Column;
+import usf.java.sqlreflect.item.Database;
+import usf.java.sqlreflect.item.Header;
+import usf.java.sqlreflect.item.Procedure;
+import usf.java.sqlreflect.item.Row;
+import usf.java.sqlreflect.item.Table;
 import usf.java.sqlreflect.mapper.RowMapper;
 import usf.java.sqlreflect.reflect.scanner.ColumnScanner;
 import usf.java.sqlreflect.reflect.scanner.DatabaseScanner;
-import usf.java.sqlreflect.reflect.scanner.HasColumn;
 import usf.java.sqlreflect.reflect.scanner.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.ProcedureScanner;
 import usf.java.sqlreflect.reflect.scanner.RowScanner;
+import usf.java.sqlreflect.reflect.scanner.SourceTypes;
 import usf.java.sqlreflect.reflect.scanner.TableScanner;
-import usf.java.sqlreflect.reflect.scanner.TableType;
+import usf.java.sqlreflect.reflect.scanner.TableTypes;
 import usf.java.sqlreflect.server.Env;
 import usf.java.sqlreflect.server.Server;
 import usf.java.sqlreflect.server.User;
@@ -84,7 +84,7 @@ public class ConsultService {
 		Response<Table> res = new Response<Table>();
 		CustomAdapter<Table> adapter = new CustomAdapter<Table>();
 		try {
-			new TableScanner(cm, TableType.VIEW).set(databasePattern, vuePattern, false).run(adapter);
+			new TableScanner(cm, TableTypes.VIEW).set(databasePattern, vuePattern, false).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -123,7 +123,7 @@ public class ConsultService {
 		Response<Column> res = new Response<Column>();
 		CustomAdapter<Column> adapter = new CustomAdapter<Column>();
 		try {
-			HasColumn parent = HasColumn.valueOf(columnParent);
+			SourceTypes parent = SourceTypes.valueOf(columnParent);
 			if(parent != null) {
 				new ColumnScanner(cm, parent).set(databasePattern, parentPattern, columnPattern).run(adapter);
 				res = adaptToReponse(adapter);
