@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
+import usf.java.sqlreflect.item.Argument;
 import usf.java.sqlreflect.item.Column;
 import usf.java.sqlreflect.item.Database;
 import usf.java.sqlreflect.item.Header;
@@ -16,7 +17,7 @@ import usf.java.sqlreflect.item.Table;
 import usf.java.sqlreflect.reflect.TimePerform;
 
 @XmlRootElement
-@XmlSeeAlso({Database.class, Table.class, Procedure.class, Column.class, Row.class, Header.class})
+@XmlSeeAlso({Database.class, Table.class, Column.class, Procedure.class, Argument.class, Row.class, Header.class})
 public class Response<T> {
 	
 	private List<String> columns;

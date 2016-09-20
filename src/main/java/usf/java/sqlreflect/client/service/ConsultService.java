@@ -23,12 +23,10 @@ import usf.java.sqlreflect.item.Procedure;
 import usf.java.sqlreflect.item.Row;
 import usf.java.sqlreflect.item.Table;
 import usf.java.sqlreflect.mapper.RowMapper;
-import usf.java.sqlreflect.reflect.scanner.ColumnScanner;
 import usf.java.sqlreflect.reflect.scanner.DatabaseScanner;
 import usf.java.sqlreflect.reflect.scanner.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.ProcedureScanner;
 import usf.java.sqlreflect.reflect.scanner.RowScanner;
-import usf.java.sqlreflect.reflect.scanner.SourceTypes;
 import usf.java.sqlreflect.reflect.scanner.TableScanner;
 import usf.java.sqlreflect.reflect.scanner.TableTypes;
 import usf.java.sqlreflect.server.Env;
@@ -121,16 +119,15 @@ public class ConsultService {
 		System.out.println("COLUMNS : " + "databasePattern="+databasePattern + " & " + columnParent + "=" + parentPattern + " & columnPattern="+columnParent);
 		
 		Response<Column> res = new Response<Column>();
-		CustomAdapter<Column> adapter = new CustomAdapter<Column>();
-		try {
-			SourceTypes parent = SourceTypes.valueOf(columnParent);
-			if(parent != null) {
-				new ColumnScanner(cm, parent).set(databasePattern, parentPattern, columnPattern).run(adapter);
-				res = adaptToReponse(adapter);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		CustomAdapter<Column> adapter = new CustomAdapter<Column>();
+//		try {
+//			if(parent != null) {
+//				new ColumnScanner(cm, parent).set(databasePattern, parentPattern, columnPattern).run(adapter);
+//				res = adaptToReponse(adapter);
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		return res;
 	}
 	
