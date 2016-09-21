@@ -20,11 +20,12 @@
 		<table border="1">
 			<tr>
 				<th ng-repeat="h in head" ng-bind="h"></th>
+				<th>Detail</th>
 			</tr>
 			<tr ng-repeat="r in rows">
 				<td ng-repeat="h in head" ng-bind="r.fields[h]"></td>
+				<td><a href="#columns">Columns</a></td>
 			</tr>
-			
 		</table>
 	</div>
 	<div ng-show="perf">

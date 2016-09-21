@@ -4,7 +4,9 @@
 
 angular.module('app')
 
-.controller('consult', function($scope, $http){
+.controller('consult', function($scope, $http, $routeParams){
+	
+	console.log($routeParams);
 	
 	$scope.submit = function(uri){
 		$scope.reset();
