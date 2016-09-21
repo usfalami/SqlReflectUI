@@ -21,9 +21,7 @@
 				<th ng-repeat="h in head" ng-bind="h"></th>
 			</tr>
 			<tr ng-repeat="r in rows">
-				<td ng-bind="r.databaseName"></td>
-				<td ng-bind="r.name"></td>
-				<td ng-bind="r.type"></td>
+				<td ng-repeat="h in head" ng-bind="r.fields[h]"></td>
 			</tr>
 		</table>
 	</div>
