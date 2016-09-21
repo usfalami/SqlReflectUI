@@ -42,7 +42,7 @@ public class ConsultService {
 	private static ConnectionManager cm;
 
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("databases")
 	public Response<Database> getDatabases(@QueryParam("databasePattern") String databasePattern) {
 		System.out.println("DATABASES : " + "database="+databasePattern);
@@ -54,11 +54,15 @@ public class ConsultService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		finally{
+			if(adapter.getTime().getTimes().get(0) != null)
+				System.out.println("Elapsed Time : "+ adapter.getTime().getTimes().get(0).duration() + "ms");
+		}
 		return res;
 	}
 	
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("tables")
 	public Response<Table> getTables(
 			@QueryParam("databasePattern") String databasePattern,  
@@ -72,16 +76,20 @@ public class ConsultService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		finally{
+			if(adapter.getTime().getTimes().get(0) != null)
+				System.out.println("Elapsed Time : "+ adapter.getTime().getTimes().get(0).duration()  + "ms");
+		}
 		return res;
 	}
 	
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	@Path("vues")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Path("views")
 	public Response<Table> getVues(
 			@QueryParam("databasePattern") String databasePattern,  
 			@QueryParam("vuePattern") String vuePattern){
-		System.out.println("TABLES : " + "database="+databasePattern + " & vue=" + vuePattern);
+		System.out.println("TABLES : " + "database="+databasePattern + " & view=" + vuePattern);
 		Response<Table> res = new Response<Table>();
 		CustomAdapter<Table> adapter = new CustomAdapter<Table>();
 		try {
@@ -90,11 +98,15 @@ public class ConsultService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		finally{
+			if(adapter.getTime().getTimes().get(0) != null)
+				System.out.println("Elapsed Time : "+ adapter.getTime().getTimes().get(0).duration()  + "ms");
+		}
 		return res;
 	}
 	
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("columns")
 	public Response<Column> getColumns(
 			@QueryParam("databasePattern") String databasePattern,  
@@ -110,11 +122,15 @@ public class ConsultService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		finally{
+			if(adapter.getTime().getTimes().get(0) != null)
+				System.out.println("Elapsed Time : "+ adapter.getTime().getTimes().get(0).duration()  + "ms");
+		}
 		return res;
 	}
 	
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("procedures")
 	public Response<Procedure> getProcedures(
 			@QueryParam("databasePattern") String databasePattern,  
@@ -128,12 +144,16 @@ public class ConsultService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		finally{
+			if(adapter.getTime().getTimes().get(0) != null)
+				System.out.println("Elapsed Time : "+ adapter.getTime().getTimes().get(0).duration()  + "ms");
+		}
 		return res;
 	}
 	
 	
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("arguments")
 	public Response<Argument> getArgument(
 			@QueryParam("databasePattern") String databasePattern,  
@@ -149,11 +169,15 @@ public class ConsultService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		finally{
+			if(adapter.getTime().getTimes().get(0) != null)
+				System.out.println("Elapsed Time : "+ adapter.getTime().getTimes().get(0).duration()  + "ms");
+		}
 		return res;
 	}
 
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("rows")
 	public Response<Row> getRows(@QueryParam("query") String query){
 		System.out.println("ROWS : " + "query=" + query);
@@ -165,11 +189,15 @@ public class ConsultService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		finally{
+			if(adapter.getTime().getTimes().get(0) != null)
+				System.out.println("Elapsed Time : "+ adapter.getTime().getTimes().get(0).duration()  + "ms");
+		}
 		return res;
 	}
 	
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("headers")
 	public Response<Header> getHeaders(@QueryParam("query") String query){
 		System.out.println("HEADERS : " + "query=" + query);
@@ -180,6 +208,10 @@ public class ConsultService {
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		finally{
+			if(adapter.getTime().getTimes().get(0) != null)
+				System.out.println("Elapsed Time : "+ adapter.getTime().getTimes().get(0).duration()  + "ms");
 		}
 		return res;
 	}
