@@ -15,6 +15,7 @@
 			<label>Column pattern</label> <input type="text" ng-model="data.columnPattern">
 		</div>
 		<input type="submit" ng-disabled="searching">
+		<input type="reset" ng-disabled="searching" ng-click="reset()">
 	</form>
 
 	<div ng-show="rows">
