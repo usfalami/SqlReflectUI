@@ -3,13 +3,16 @@
 
 <body>
 
-	<h1>Tables</h1>
-	<form ng-submit="submit('service/tables')">
+	<h1>Arguments</h1>
+	<form ng-submit="submit('service/arguments')">
 		<div>
 			<label>Database pattern</label> <input type="text" ng-model="data.databasePattern">
 		</div>
 		<div>
-			<label>Table pattern</label> <input type="text" ng-model="data.tablePattern">
+ 			<label>Procedure pattern</label> <input type="text" ng-model="data.procedurePattern">
+		</div>
+		<div>
+			<label>Arguments pattern</label> <input type="text" ng-model="data.columnPattern">
 		</div>
 		<input type="submit" ng-disabled="searching">
 	</form>
@@ -23,7 +26,6 @@
 			<tr ng-repeat="r in rows">
 				<td ng-repeat="h in head" ng-bind="r.fields[h]"></td>
 			</tr>
-			
 		</table>
 	</div>
 	<div ng-show="perf">

@@ -16,6 +16,7 @@ import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.connection.manager.SimpleConnectionManager;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
+import usf.java.sqlreflect.item.Argument;
 import usf.java.sqlreflect.item.Column;
 import usf.java.sqlreflect.item.Database;
 import usf.java.sqlreflect.item.Header;
@@ -23,6 +24,8 @@ import usf.java.sqlreflect.item.Procedure;
 import usf.java.sqlreflect.item.Row;
 import usf.java.sqlreflect.item.Table;
 import usf.java.sqlreflect.mapper.RowMapper;
+import usf.java.sqlreflect.reflect.scanner.ArgumentScanner;
+import usf.java.sqlreflect.reflect.scanner.ColumnScanner;
 import usf.java.sqlreflect.reflect.scanner.DatabaseScanner;
 import usf.java.sqlreflect.reflect.scanner.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.ProcedureScanner;
@@ -42,7 +45,7 @@ public class ConsultService {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("databases")
 	public Response<Database> getDatabases(@QueryParam("databasePattern") String databasePattern) {
-		System.out.println("DATABASES : " + "databasePattern="+databasePattern);
+		System.out.println("DATABASES : " + "database="+databasePattern);
 		Response<Database> res = new Response<Database>();
 		CustomAdapter<Database> adapter = new CustomAdapter<Database>();
 		try {
@@ -60,7 +63,7 @@ public class ConsultService {
 	public Response<Table> getTables(
 			@QueryParam("databasePattern") String databasePattern,  
 			@QueryParam("tablePattern") String tablePattern){
-		System.out.println("TABLES : " + "databasePattern="+databasePattern + " & tablePattern=" + tablePattern);
+		System.out.println("TABLES : " + "database="+databasePattern + " & table=" + tablePattern);
 		Response<Table> res = new Response<Table>();
 		CustomAdapter<Table> adapter = new CustomAdapter<Table>();
 		try {
@@ -78,7 +81,7 @@ public class ConsultService {
 	public Response<Table> getVues(
 			@QueryParam("databasePattern") String databasePattern,  
 			@QueryParam("vuePattern") String vuePattern){
-		System.out.println("TABLES : " + "databasePattern="+databasePattern + " & vuePattern=" + vuePattern);
+		System.out.println("TABLES : " + "database="+databasePattern + " & vue=" + vuePattern);
 		Response<Table> res = new Response<Table>();
 		CustomAdapter<Table> adapter = new CustomAdapter<Table>();
 		try {
@@ -92,11 +95,31 @@ public class ConsultService {
 	
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Path("columns")
+	public Response<Column> getColumns(
+			@QueryParam("databasePattern") String databasePattern,  
+			@QueryParam("tablePattern") String tablePattern,
+			@QueryParam("columnPattern") String columnPattern){
+		System.out.println("COLUMNS : " + "database="+databasePattern + " & table=" + tablePattern + " & column="+columnPattern);
+		
+		Response<Column> res = new Response<Column>();
+		CustomAdapter<Column> adapter = new CustomAdapter<Column>();
+		try {
+			new ColumnScanner(cm).set(databasePattern, tablePattern, columnPattern).run(adapter);
+			res = adaptToReponse(adapter);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
+	
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("procedures")
 	public Response<Procedure> getProcedures(
 			@QueryParam("databasePattern") String databasePattern,  
 			@QueryParam("procedurePattern") String procedurePattern){
-		System.out.println("PROCEDURES : " + "databasePattern="+databasePattern + " & procedurePattern=" + procedurePattern);
+		System.out.println("PROCEDURES : " + "database="+databasePattern + " & procedure=" + procedurePattern);
 		Response<Procedure> res = new Response<Procedure>();
 		CustomAdapter<Procedure> adapter = new CustomAdapter<Procedure>();
 		try {
@@ -108,29 +131,27 @@ public class ConsultService {
 		return res;
 	}
 	
+	
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	@Path("columns")
-	public Response<Column> getColumns(
+	@Path("arguments")
+	public Response<Argument> getArgument(
 			@QueryParam("databasePattern") String databasePattern,  
-			@QueryParam("parentPattern") String parentPattern,
-			@QueryParam("columnPattern") String columnPattern,
-			@QueryParam("columnParent") String columnParent){
-		System.out.println("COLUMNS : " + "databasePattern="+databasePattern + " & " + columnParent + "=" + parentPattern + " & columnPattern="+columnParent);
+			@QueryParam("procedurePattern") String procedurePattern,
+			@QueryParam("argumentPattern") String argumentPattern){
+		System.out.println("COLUMNS : " + "database="+databasePattern + " & procedure=" + procedurePattern + " & column="+argumentPattern);
 		
-		Response<Column> res = new Response<Column>();
-//		CustomAdapter<Column> adapter = new CustomAdapter<Column>();
-//		try {
-//			if(parent != null) {
-//				new ColumnScanner(cm, parent).set(databasePattern, parentPattern, columnPattern).run(adapter);
-//				res = adaptToReponse(adapter);
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		Response<Argument> res = new Response<Argument>();
+		CustomAdapter<Argument> adapter = new CustomAdapter<Argument>();
+		try {
+			new ArgumentScanner(cm).set(databasePattern, procedurePattern, argumentPattern).run(adapter);
+			res = adaptToReponse(adapter);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return res;
 	}
-	
+
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("rows")

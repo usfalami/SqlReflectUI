@@ -19,16 +19,20 @@ angular.module('app')
 		templateUrl: 'html/tables.html', controller: 'consult'
 	}).
 	
-	when('/vues', {
-		templateUrl: 'html/vues.html', controller: 'consult'
+	when('/views', {
+		templateUrl: 'html/views.html', controller: 'consult'
+	}).
+
+	when('/columns', {
+		templateUrl: 'html/columns.html', controller: 'consult'
 	}).
 
 	when('/procedures', {
 		templateUrl: 'html/procedures.html', controller: 'consult'
 	}).
 
-	when('/columns', {
-		templateUrl: 'html/columns.html', controller: 'consult'
+	when('/arguments', {
+		templateUrl: 'html/arguments.html', controller: 'consult'
 	}).
 	
 	when('/rows', {
