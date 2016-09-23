@@ -16,13 +16,6 @@ import usf.java.sqlreflect.connection.manager.ConnectionManager;
 import usf.java.sqlreflect.connection.manager.SimpleConnectionManager;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
-import usf.java.sqlreflect.item.Argument;
-import usf.java.sqlreflect.item.Column;
-import usf.java.sqlreflect.item.Database;
-import usf.java.sqlreflect.item.Header;
-import usf.java.sqlreflect.item.Procedure;
-import usf.java.sqlreflect.item.Row;
-import usf.java.sqlreflect.item.Table;
 import usf.java.sqlreflect.mapper.RowMapper;
 import usf.java.sqlreflect.reflect.scanner.ArgumentScanner;
 import usf.java.sqlreflect.reflect.scanner.ColumnScanner;
@@ -31,10 +24,17 @@ import usf.java.sqlreflect.reflect.scanner.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.ProcedureScanner;
 import usf.java.sqlreflect.reflect.scanner.RowScanner;
 import usf.java.sqlreflect.reflect.scanner.TableScanner;
-import usf.java.sqlreflect.reflect.scanner.TableTypes;
 import usf.java.sqlreflect.server.Env;
 import usf.java.sqlreflect.server.Server;
 import usf.java.sqlreflect.server.User;
+import usf.java.sqlreflect.sql.item.Argument;
+import usf.java.sqlreflect.sql.item.Column;
+import usf.java.sqlreflect.sql.item.Database;
+import usf.java.sqlreflect.sql.item.Header;
+import usf.java.sqlreflect.sql.item.Procedure;
+import usf.java.sqlreflect.sql.item.Row;
+import usf.java.sqlreflect.sql.item.Table;
+import usf.java.sqlreflect.sql.type.TableTypes;
 
 @Path("")
 public class ConsultService {

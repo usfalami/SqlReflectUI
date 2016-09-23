@@ -7,13 +7,13 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
-import usf.java.sqlreflect.item.Argument;
-import usf.java.sqlreflect.item.Column;
-import usf.java.sqlreflect.item.Database;
-import usf.java.sqlreflect.item.Header;
-import usf.java.sqlreflect.item.Procedure;
-import usf.java.sqlreflect.item.Row;
-import usf.java.sqlreflect.item.Table;
+import usf.java.sqlreflect.sql.item.Argument;
+import usf.java.sqlreflect.sql.item.Column;
+import usf.java.sqlreflect.sql.item.Database;
+import usf.java.sqlreflect.sql.item.Header;
+import usf.java.sqlreflect.sql.item.Procedure;
+import usf.java.sqlreflect.sql.item.Row;
+import usf.java.sqlreflect.sql.item.Table;
 import usf.java.sqlreflect.reflect.TimePerform;
 
 @XmlRootElement
