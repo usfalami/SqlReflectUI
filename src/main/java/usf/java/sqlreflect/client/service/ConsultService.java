@@ -17,6 +17,7 @@ import usf.java.sqlreflect.connection.manager.SimpleConnectionManager;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
 import usf.java.sqlreflect.mapper.RowMapper;
+import usf.java.sqlreflect.reflect.ActionPerform;
 import usf.java.sqlreflect.reflect.scanner.ArgumentScanner;
 import usf.java.sqlreflect.reflect.scanner.ColumnScanner;
 import usf.java.sqlreflect.reflect.scanner.DatabaseScanner;
@@ -55,8 +56,9 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			if(adapter.getTime().getTimes().get(0) != null)
-				System.out.println("Elapsed Time : "+ adapter.getTime().getTimes().get(0).duration() + "ms");
+			ActionPerform ap = adapter.getTime().getTimes().iterator().next();
+			if(ap!= null)
+				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
 		}
 		return res;
 	}
@@ -71,14 +73,15 @@ public class ConsultService {
 		Response<Table> res = new Response<Table>();
 		CustomAdapter<Table> adapter = new CustomAdapter<Table>();
 		try {
-			new TableScanner(cm).set(databasePattern, tablePattern, false).run(adapter);
+			new TableScanner(cm).set(false).run(adapter, databasePattern, tablePattern);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		finally{
-			if(adapter.getTime().getTimes().get(0) != null)
-				System.out.println("Elapsed Time : "+ adapter.getTime().getTimes().get(0).duration()  + "ms");
+			ActionPerform ap = adapter.getTime().getTimes().iterator().next();
+			if(ap!= null)
+				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
 		}
 		return res;
 	}
@@ -93,14 +96,15 @@ public class ConsultService {
 		Response<Table> res = new Response<Table>();
 		CustomAdapter<Table> adapter = new CustomAdapter<Table>();
 		try {
-			new TableScanner(cm, TableTypes.VIEW).set(databasePattern, vuePattern, false).run(adapter);
+			new TableScanner(cm).set(false, TableTypes.VIEW).run(adapter, databasePattern, vuePattern);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		finally{
-			if(adapter.getTime().getTimes().get(0) != null)
-				System.out.println("Elapsed Time : "+ adapter.getTime().getTimes().get(0).duration()  + "ms");
+			ActionPerform ap = adapter.getTime().getTimes().iterator().next();
+			if(ap!= null)
+				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
 		}
 		return res;
 	}
@@ -117,14 +121,15 @@ public class ConsultService {
 		Response<Column> res = new Response<Column>();
 		CustomAdapter<Column> adapter = new CustomAdapter<Column>();
 		try {
-			new ColumnScanner(cm).set(databasePattern, tablePattern, columnPattern).run(adapter);
+			new ColumnScanner(cm).run(adapter, databasePattern, tablePattern, columnPattern);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		finally{
-			if(adapter.getTime().getTimes().get(0) != null)
-				System.out.println("Elapsed Time : "+ adapter.getTime().getTimes().get(0).duration()  + "ms");
+			ActionPerform ap = adapter.getTime().getTimes().iterator().next();
+			if(ap!= null)
+				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
 		}
 		return res;
 	}
@@ -139,14 +144,15 @@ public class ConsultService {
 		Response<Procedure> res = new Response<Procedure>();
 		CustomAdapter<Procedure> adapter = new CustomAdapter<Procedure>();
 		try {
-			new ProcedureScanner(cm).set(databasePattern, procedurePattern, false).run(adapter);
+			new ProcedureScanner(cm).set(false).run(adapter, databasePattern, procedurePattern);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		finally{
-			if(adapter.getTime().getTimes().get(0) != null)
-				System.out.println("Elapsed Time : "+ adapter.getTime().getTimes().get(0).duration()  + "ms");
+			ActionPerform ap = adapter.getTime().getTimes().iterator().next();
+			if(ap!= null)
+				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
 		}
 		return res;
 	}
@@ -164,14 +170,15 @@ public class ConsultService {
 		Response<Argument> res = new Response<Argument>();
 		CustomAdapter<Argument> adapter = new CustomAdapter<Argument>();
 		try {
-			new ArgumentScanner(cm).set(databasePattern, procedurePattern, argumentPattern).run(adapter);
+			new ArgumentScanner(cm).run(adapter, databasePattern, procedurePattern, argumentPattern);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		finally{
-			if(adapter.getTime().getTimes().get(0) != null)
-				System.out.println("Elapsed Time : "+ adapter.getTime().getTimes().get(0).duration()  + "ms");
+			ActionPerform ap = adapter.getTime().getTimes().iterator().next();
+			if(ap!= null)
+				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
 		}
 		return res;
 	}
@@ -190,8 +197,9 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			if(adapter.getTime().getTimes().get(0) != null)
-				System.out.println("Elapsed Time : "+ adapter.getTime().getTimes().get(0).duration()  + "ms");
+			ActionPerform ap = adapter.getTime().getTimes().iterator().next();
+			if(ap!= null)
+				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
 		}
 		return res;
 	}
@@ -210,8 +218,9 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			if(adapter.getTime().getTimes().get(0) != null)
-				System.out.println("Elapsed Time : "+ adapter.getTime().getTimes().get(0).duration()  + "ms");
+			ActionPerform ap = adapter.getTime().getTimes().iterator().next();
+			if(ap!= null)
+				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
 		}
 		return res;
 	}
