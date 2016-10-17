@@ -9,14 +9,14 @@
 			<label>Database pattern</label> <input type="text" ng-model="data.databasePattern">
 		</div>
 		<div>
-			<label>Vue pattern</label> <input type="text" ng-model="data.vuePattern">
+			<label>View pattern</label> <input type="text" ng-model="data.vuePattern">
 		</div>
 		<input type="submit" ng-disabled="searching">
 		<input type="reset" ng-disabled="searching" ng-click="reset()">
 	</form>
 
 	<div ng-show="rows">
-		<h3>Résults ({{perf.rowCount}})</h3>
+		<h3>Results ({{perf.rowCount}})</h3>
 		<table border="1">
 			<tr>
 				<th ng-repeat="h in head" ng-bind="h"></th>

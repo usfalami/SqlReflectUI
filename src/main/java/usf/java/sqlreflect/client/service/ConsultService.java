@@ -22,6 +22,7 @@ import usf.java.sqlreflect.reflect.scanner.ArgumentScanner;
 import usf.java.sqlreflect.reflect.scanner.ColumnScanner;
 import usf.java.sqlreflect.reflect.scanner.DatabaseScanner;
 import usf.java.sqlreflect.reflect.scanner.HeaderScanner;
+import usf.java.sqlreflect.reflect.scanner.NativeFunctionScanner;
 import usf.java.sqlreflect.reflect.scanner.ProcedureScanner;
 import usf.java.sqlreflect.reflect.scanner.RowScanner;
 import usf.java.sqlreflect.reflect.scanner.TableScanner;
@@ -35,6 +36,7 @@ import usf.java.sqlreflect.sql.item.Header;
 import usf.java.sqlreflect.sql.item.Procedure;
 import usf.java.sqlreflect.sql.item.Row;
 import usf.java.sqlreflect.sql.item.Table;
+import usf.java.sqlreflect.sql.type.NativeFunctions;
 import usf.java.sqlreflect.sql.type.TableTypes;
 
 @Path("")
@@ -73,7 +75,7 @@ public class ConsultService {
 		Response<Table> res = new Response<Table>();
 		CustomAdapter<Table> adapter = new CustomAdapter<Table>();
 		try {
-			new TableScanner(cm).set(false).run(adapter, databasePattern, tablePattern);
+			new TableScanner(cm).set(databasePattern, tablePattern, false).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -96,7 +98,7 @@ public class ConsultService {
 		Response<Table> res = new Response<Table>();
 		CustomAdapter<Table> adapter = new CustomAdapter<Table>();
 		try {
-			new TableScanner(cm).set(false, TableTypes.VIEW).run(adapter, databasePattern, vuePattern);
+			new TableScanner(cm).set(databasePattern, vuePattern, false, TableTypes.VIEW).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -121,7 +123,7 @@ public class ConsultService {
 		Response<Column> res = new Response<Column>();
 		CustomAdapter<Column> adapter = new CustomAdapter<Column>();
 		try {
-			new ColumnScanner(cm).run(adapter, databasePattern, tablePattern, columnPattern);
+			new ColumnScanner(cm).set(databasePattern, tablePattern, columnPattern).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -144,7 +146,7 @@ public class ConsultService {
 		Response<Procedure> res = new Response<Procedure>();
 		CustomAdapter<Procedure> adapter = new CustomAdapter<Procedure>();
 		try {
-			new ProcedureScanner(cm).set(false).run(adapter, databasePattern, procedurePattern);
+			new ProcedureScanner(cm).set(databasePattern, procedurePattern, false).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -161,7 +163,7 @@ public class ConsultService {
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("arguments")
-	public Response<Argument> getArgument(
+	public Response<Argument> getArguments(
 			@QueryParam("databasePattern") String databasePattern,  
 			@QueryParam("procedurePattern") String procedurePattern,
 			@QueryParam("argumentPattern") String argumentPattern){
@@ -170,8 +172,32 @@ public class ConsultService {
 		Response<Argument> res = new Response<Argument>();
 		CustomAdapter<Argument> adapter = new CustomAdapter<Argument>();
 		try {
-			new ArgumentScanner(cm).run(adapter, databasePattern, procedurePattern, argumentPattern);
+			new ArgumentScanner(cm).set(databasePattern, procedurePattern, argumentPattern).run(adapter);
 			res = adaptToReponse(adapter);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally{
+			ActionPerform ap = adapter.getTime().getTimes().iterator().next();
+			if(ap!= null)
+				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
+		}
+		return res;
+	}
+	
+	@GET
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Path("nativeFunctions")
+	public Response<String> getNativeFunction(
+			@QueryParam("nativeFunction") String nativeFunction){
+		System.out.println("NativeFunction : " + "pattern="+nativeFunction);
+		
+		Response<String> res = new Response<String>();
+		CustomAdapter<String> adapter = new CustomAdapter<String>();
+		try {
+			NativeFunctions nf = NativeFunctions.valueOf(nativeFunction);
+			new NativeFunctionScanner(cm).set(nf).run(adapter);
+			res = adaptToReponse(adapter, "Name");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -191,7 +217,7 @@ public class ConsultService {
 		Response<Row> res = new Response<Row>();
 		CustomAdapter<Row> adapter = new CustomAdapter<Row>();
 		try {
-			new RowScanner<Row>(cm, new RowMapper()).set(query).run(adapter);
+			new RowScanner<Void, Row>(cm, new RowMapper()).set(query).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -225,9 +251,12 @@ public class ConsultService {
 		return res;
 	}
 	
-	private <T> Response<T> adaptToReponse(CustomAdapter<T> adapter) {
+	private <T> Response<T> adaptToReponse(CustomAdapter<T> adapter, String... columns) {
 		Response<T> res = new Response<T>();
-		res.setColumns(Arrays.asList(adapter.getMapper().getColumnNames()));
+		if(columns != null && columns.length > 0)
+			res.setColumns(Arrays.asList(columns));
+		else
+			res.setColumns(Arrays.asList(adapter.getMapper().getColumnNames()));
 		res.setList(adapter.getList());
 		res.setTimePerform(adapter.getTime());
 		return res;
