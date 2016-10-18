@@ -3,13 +3,13 @@
 
 <body>
 
-	<h1>Vues</h1>
+	<h1>Views</h1>
 	<form ng-submit="submit('service/views')">
 		<div>
 			<label>Database pattern</label> <input type="text" ng-model="data.databasePattern">
 		</div>
 		<div>
-			<label>View pattern</label> <input type="text" ng-model="data.vuePattern">
+			<label>View pattern</label> <input type="text" ng-model="data.viewPattern">
 		</div>
 		<input type="submit" ng-disabled="searching">
 		<input type="reset" ng-disabled="searching" ng-click="reset()">

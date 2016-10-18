@@ -91,14 +91,14 @@ public class ConsultService {
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("views")
-	public Response<Table> getVues(
+	public Response<Table> getViews(
 			@QueryParam("databasePattern") String databasePattern,  
-			@QueryParam("vuePattern") String vuePattern){
-		System.out.println("TABLES : " + "database="+databasePattern + " & view=" + vuePattern);
+			@QueryParam("viewPattern") String viewPattern){
+		System.out.println("TABLES : " + "database="+databasePattern + " & view=" + viewPattern);
 		Response<Table> res = new Response<Table>();
 		CustomAdapter<Table> adapter = new CustomAdapter<Table>();
 		try {
-			new TableScanner(cm).set(databasePattern, vuePattern, false, TableTypes.VIEW).run(adapter);
+			new TableScanner(cm).set(databasePattern, viewPattern, false, TableTypes.VIEW).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
