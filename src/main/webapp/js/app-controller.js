@@ -15,7 +15,7 @@ angular.module('app')
 				$scope.searching = false;
 				$scope.head = data.columns;
 				$scope.rows = data.items;
-				$scope.perf = data.timePerform;
+				$scope.perf = data.timer;
 			})
 			.error(function(error, status){
 				$scope.searching = false;

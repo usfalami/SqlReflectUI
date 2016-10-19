@@ -53,11 +53,11 @@ public class Response<T> {
 		this.list = list;
 	}
 
-	public ActionTimer getTimePerform() {
+	public ActionTimer getTimer() {
 		return time;
 	}
 
-	public void setTimePerform(ActionTimer time) {
+	public void setTimer(ActionTimer time) {
 		this.time = time;
 	}
 	

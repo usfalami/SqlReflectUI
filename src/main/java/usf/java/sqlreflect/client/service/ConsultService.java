@@ -258,7 +258,7 @@ public class ConsultService {
 		else
 			res.setColumns(Arrays.asList(adapter.getMapper().getColumnNames()));
 		res.setList(adapter.getList());
-		res.setTimePerform(adapter.getActionTimer());
+		res.setTimer(adapter.getActionTimer());
 		return res;
 	}
 
