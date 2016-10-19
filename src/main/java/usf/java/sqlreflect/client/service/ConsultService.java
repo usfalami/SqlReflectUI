@@ -246,7 +246,7 @@ public class ConsultService {
 		Response<Header> res = new Response<Header>();
 		CustomAdapter<Header> adapter = new CustomAdapter<Header>();
 		try {
-			new HeaderScanner(cm).set(query).run(adapter);
+			new HeaderScanner<Void>(cm).set(query).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
