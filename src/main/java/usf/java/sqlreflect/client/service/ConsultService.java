@@ -60,9 +60,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
-			if(ap!= null)
-				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
+			printTimer(adapter);
 		}
 		return res;
 	}
@@ -83,9 +81,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
-			if(ap!= null)
-				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
+			printTimer(adapter);
 		}
 		return res;
 	}
@@ -106,9 +102,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
-			if(ap!= null)
-				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
+			printTimer(adapter);
 		}
 		return res;
 	}
@@ -131,9 +125,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
-			if(ap!= null)
-				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
+			printTimer(adapter);
 		}
 		return res;
 	}
@@ -155,9 +147,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
-			if(ap!= null)
-				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
+			printTimer(adapter);
 		}
 		return res;
 	}
@@ -178,9 +168,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
-			if(ap!= null)
-				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
+			printTimer(adapter);
 		}
 		return res;
 	}
@@ -204,9 +192,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
-			if(ap!= null)
-				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
+			printTimer(adapter);
 		}
 		return res;
 	}
@@ -228,9 +214,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
-			if(ap!= null)
-				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
+			printTimer(adapter);
 		}
 		return res;
 	}
@@ -249,9 +233,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
-			if(ap!= null)
-				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
+			printTimer(adapter);
 		}
 		return res;
 	}
@@ -270,9 +252,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
-			if(ap!= null)
-				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
+			printTimer(adapter);
 		}
 		return res;
 	}
@@ -286,6 +266,12 @@ public class ConsultService {
 		res.setList(adapter.getList());
 		res.setTimer(adapter.getActionTimer());
 		return res;
+	}
+	
+	private static void printTimer(CustomAdapter<?> adapter) {
+		ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
+		if(ap!= null)
+			System.out.println("Elapsed Time : "+ ap.duration() + "ms");
 	}
 
 	static { // user context listner
