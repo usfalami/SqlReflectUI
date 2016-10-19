@@ -31,23 +31,8 @@
 			</tr>
 		</table>
 	</div>
-	<div ng-show="perf">
-		<h3>Time</h3>
-		<table border="1">
-			<tr>
-				<th>Action</th>
-				<th>Start</th>
-				<th>End</th>
-				<th>Duration</th>
-			</tr>
-			<tr ng-repeat="action in perf.times">
-				<td>{{action.name}}</td>
-				<td ng-bind="action.start|date:'HH:mm:ss:sss'"></td>
-				<td ng-bind="action.end|date:'HH:mm:ss:sss'"></td>
-				<td style="text-align:right;">{{action.end - action.start}} ms</td>
-			</tr>
-		</table>
-	</div>
-
+	
+	<action-timer timer="perf" />
+	
 </body>
 </html>

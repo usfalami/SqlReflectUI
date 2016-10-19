@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<div ng-show="timer">
+	<h3>Time</h3>
+	<table border="1">
+		<tr>
+			<th>Action</th>
+			<th>Start</th>
+			<th>End</th>
+			<th>Duration</th>
+		</tr>
+		<tr>
+			<td>{{timer.name}}</td>
+			<td ng-bind="timer.start|date:'HH:mm:ss:sss'"></td>
+			<td ng-bind="timer.end|date:'HH:mm:ss:sss'"></td>
+			<td style="text-align:right;">{{timer.end - timer.start}} ms</td>
+		</tr>
+		<tr ng-repeat="t in timer.timers">
+			<td>{{t.name}}</td>
+			<td ng-bind="t.start|date:'HH:mm:ss:sss'"></td>
+			<td ng-bind="t.end|date:'HH:mm:ss:sss'"></td>
+			<td style="text-align:right;">{{t.end - t.start}} ms</td>
+		</tr>
+	</table>
+</div>

@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
-import usf.java.sqlreflect.reflect.TimePerform;
+import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.sql.item.Argument;
 import usf.java.sqlreflect.sql.item.Column;
 import usf.java.sqlreflect.sql.item.Database;
@@ -22,7 +22,7 @@ public class Response<T> {
 	
 	private List<String> columns;
 	private List<T> list;
-	private TimePerform time = new TimePerform();
+	private ActionTimer time = new ActionTimer();
 
 	public Response() {
 		// TODO Auto-generated constructor stub
@@ -53,11 +53,11 @@ public class Response<T> {
 		this.list = list;
 	}
 
-	public TimePerform getTimePerform() {
+	public ActionTimer getTimePerform() {
 		return time;
 	}
 
-	public void setTimePerform(TimePerform time) {
+	public void setTimePerform(ActionTimer time) {
 		this.time = time;
 	}
 	

@@ -17,7 +17,7 @@ import usf.java.sqlreflect.connection.manager.SimpleConnectionManager;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
 import usf.java.sqlreflect.mapper.RowMapper;
-import usf.java.sqlreflect.reflect.ActionPerform;
+import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.scanner.ArgumentScanner;
 import usf.java.sqlreflect.reflect.scanner.ColumnScanner;
 import usf.java.sqlreflect.reflect.scanner.DatabaseScanner;
@@ -58,7 +58,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			ActionPerform ap = adapter.getTime().getTimes().iterator().next();
+			ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
 			if(ap!= null)
 				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
 		}
@@ -81,7 +81,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			ActionPerform ap = adapter.getTime().getTimes().iterator().next();
+			ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
 			if(ap!= null)
 				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
 		}
@@ -104,7 +104,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			ActionPerform ap = adapter.getTime().getTimes().iterator().next();
+			ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
 			if(ap!= null)
 				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
 		}
@@ -129,7 +129,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			ActionPerform ap = adapter.getTime().getTimes().iterator().next();
+			ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
 			if(ap!= null)
 				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
 		}
@@ -152,7 +152,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			ActionPerform ap = adapter.getTime().getTimes().iterator().next();
+			ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
 			if(ap!= null)
 				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
 		}
@@ -178,7 +178,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			ActionPerform ap = adapter.getTime().getTimes().iterator().next();
+			ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
 			if(ap!= null)
 				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
 		}
@@ -202,7 +202,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			ActionPerform ap = adapter.getTime().getTimes().iterator().next();
+			ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
 			if(ap!= null)
 				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
 		}
@@ -223,7 +223,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			ActionPerform ap = adapter.getTime().getTimes().iterator().next();
+			ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
 			if(ap!= null)
 				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
 		}
@@ -244,7 +244,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			ActionPerform ap = adapter.getTime().getTimes().iterator().next();
+			ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
 			if(ap!= null)
 				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
 		}
@@ -258,7 +258,7 @@ public class ConsultService {
 		else
 			res.setColumns(Arrays.asList(adapter.getMapper().getColumnNames()));
 		res.setList(adapter.getList());
-		res.setTimePerform(adapter.getTime());
+		res.setTimePerform(adapter.getActionTimer());
 		return res;
 	}
 
