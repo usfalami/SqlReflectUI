@@ -23,6 +23,7 @@ import usf.java.sqlreflect.reflect.scanner.ColumnScanner;
 import usf.java.sqlreflect.reflect.scanner.DatabaseScanner;
 import usf.java.sqlreflect.reflect.scanner.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.NativeFunctionScanner;
+import usf.java.sqlreflect.reflect.scanner.PrimaryKeyScanner;
 import usf.java.sqlreflect.reflect.scanner.ProcedureScanner;
 import usf.java.sqlreflect.reflect.scanner.RowScanner;
 import usf.java.sqlreflect.reflect.scanner.TableScanner;
@@ -33,6 +34,7 @@ import usf.java.sqlreflect.sql.item.Argument;
 import usf.java.sqlreflect.sql.item.Column;
 import usf.java.sqlreflect.sql.item.Database;
 import usf.java.sqlreflect.sql.item.Header;
+import usf.java.sqlreflect.sql.item.PrimaryKey;
 import usf.java.sqlreflect.sql.item.Procedure;
 import usf.java.sqlreflect.sql.item.Row;
 import usf.java.sqlreflect.sql.item.Table;
@@ -124,6 +126,30 @@ public class ConsultService {
 		CustomAdapter<Column> adapter = new CustomAdapter<Column>();
 		try {
 			new ColumnScanner(cm).set(databasePattern, tablePattern, columnPattern).run(adapter);
+			res = adaptToReponse(adapter);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally{
+			ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
+			if(ap!= null)
+				System.out.println("Elapsed Time : "+ ap.duration() + "ms");
+		}
+		return res;
+	}
+	
+	@GET
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Path("primaryKeys")
+	public Response<PrimaryKey> getPrimaryKeys(
+			@QueryParam("databasePattern") String databasePattern,  
+			@QueryParam("tablePattern") String tablePattern){
+		System.out.println("PRIMARY_KEYS : " + "database="+databasePattern + " & table=" + tablePattern);
+		
+		Response<PrimaryKey> res = new Response<PrimaryKey>();
+		CustomAdapter<PrimaryKey> adapter = new CustomAdapter<PrimaryKey>();
+		try {
+			new PrimaryKeyScanner(cm).set(databasePattern, tablePattern).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
