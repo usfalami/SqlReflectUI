@@ -272,6 +272,7 @@ public class ConsultService {
 		ActionTimer ap = adapter.getActionTimer();
 		if(ap!= null)
 			System.out.println("Elapsed Time : "+ ap.duration() + "ms");
+		System.out.println("Connexion opned : " + cm.isValid());
 	}
 
 	static { // user context listner
