@@ -1,5 +1,6 @@
 package usf.java.sqlreflect.client;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -21,7 +22,7 @@ import usf.java.sqlreflect.sql.item.Table;
 public class Response<T> {
 	
 	private List<String> columns;
-	private List<T> list;
+	private Collection<T> list;
 	private ActionTimer time = new ActionTimer();
 
 	public Response() {
@@ -43,13 +44,13 @@ public class Response<T> {
 		this.columns = columns;
 	}
 
-	public List<T> getList() {
+	public Collection<T> getList() {
 		return list;
 	}
 	
 	@XmlElementWrapper(name="items")
 	@XmlElement(name="item")
-	public void setList(List<T> list) {
+	public void setList(Collection<T> list) {
 		this.list = list;
 	}
 
