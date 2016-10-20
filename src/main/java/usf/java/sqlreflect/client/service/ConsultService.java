@@ -18,12 +18,12 @@ import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
 import usf.java.sqlreflect.mapper.RowMapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
+import usf.java.sqlreflect.reflect.scanner.NativeFunctionScanner;
 import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.data.RowScanner;
 import usf.java.sqlreflect.reflect.scanner.field.ArgumentScanner;
 import usf.java.sqlreflect.reflect.scanner.field.ColumnScanner;
 import usf.java.sqlreflect.reflect.scanner.field.DatabaseScanner;
-import usf.java.sqlreflect.reflect.scanner.field.NativeFunctionScanner;
 import usf.java.sqlreflect.reflect.scanner.field.PrimaryKeyScanner;
 import usf.java.sqlreflect.reflect.scanner.field.ProcedureScanner;
 import usf.java.sqlreflect.reflect.scanner.field.TableScanner;
@@ -269,7 +269,7 @@ public class ConsultService {
 	}
 	
 	private static void printTimer(CustomAdapter<?> adapter) {
-		ActionTimer ap = adapter.getActionTimer().getTimers().iterator().next();
+		ActionTimer ap = adapter.getActionTimer();
 		if(ap!= null)
 			System.out.println("Elapsed Time : "+ ap.duration() + "ms");
 	}
