@@ -20,11 +20,11 @@
 		<table border="1">
 			<tr>
 				<th ng-repeat="h in head" ng-bind="h"></th>
-				<th>Arguments</th>
+				<th>Details</th>
 			</tr>
 			<tr ng-repeat="r in rows">
 				<td ng-repeat="h in head" ng-bind="r.fields[h]"></td>
-				<td><a href="#arguments/{{r.fields['PROCEDURE_SCHEM']}}/{{r.fields['PROCEDURE_NAME']}}">Columns</a></td>
+				<td><a href="#arguments/{{r.fields['PROCEDURE_SCHEM']}}/{{r.fields['PROCEDURE_NAME']}}">Arguments</a></td>
 			</tr>
 		</table>
 	</div>

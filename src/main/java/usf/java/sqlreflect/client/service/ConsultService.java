@@ -41,8 +41,6 @@ import usf.java.sqlreflect.sql.type.TableTypes;
 @Path("")
 public class ConsultService {
 
-	private ConnectionProvider cp;
-
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("databases")
@@ -270,7 +268,6 @@ public class ConsultService {
 		if(ap!= null)
 			System.out.println("Elapsed Time : "+ ap.duration() + "ms");
 	}
-
 	
 //	server=usf.java.sqlreflect.server.*****
 //
@@ -281,6 +278,8 @@ public class ConsultService {
 	
 //	user.login=******
 //	user.password=*****
+	
+	private ConnectionProvider cp;
 	
 	public ConsultService() {
 		try {
