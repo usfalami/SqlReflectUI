@@ -9,7 +9,7 @@
 			<label>Database pattern</label> <input type="text" ng-model="data.databasePattern">
 		</div>
 		<div>
-			<label>View pattern</label> <input type="text" ng-model="data.viewPattern">
+			<label>View pattern</label> <input type="text" ng-model="data.tablePattern">
 		</div>
 		<input type="submit" ng-disabled="searching">
 		<input type="reset" ng-disabled="searching" ng-click="reset()">
@@ -23,6 +23,7 @@
 			</tr>
 			<tr ng-repeat="r in rows">
 				<td ng-repeat="h in head" ng-bind="r.fields[h]"></td>
+				<td><a href="#columns/{{r.fields['TABLE_SCHEM']}}/{{r.fields['TABLE_NAME']}}">Columns</a></td>
 			</tr>
 		</table>
 	</div>

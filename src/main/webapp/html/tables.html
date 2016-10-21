@@ -20,11 +20,13 @@
 		<table border="1">
 			<tr>
 				<th ng-repeat="h in head" ng-bind="h"></th>
-				<th>Detail</th>
+				<th>Columns</th>
+				<th>Primary keys</th>
 			</tr>
 			<tr ng-repeat="r in rows">
 				<td ng-repeat="h in head" ng-bind="r.fields[h]"></td>
-				<td><a href="#columns">Columns</a></td>
+				<td><a href="#columns/{{r.fields['TABLE_SCHEM']}}/{{r.fields['TABLE_NAME']}}">Columns</a></td>
+				<td><a href="#primaryKeys/{{r.fields['TABLE_SCHEM']}}/{{r.fields['TABLE_NAME']}}">P.K</a></td>
 			</tr>
 		</table>
 	</div>

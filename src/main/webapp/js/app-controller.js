@@ -28,4 +28,12 @@ angular.module('app')
 		$scope.rows = null;
 		$scope.perf = null;
 	};
+
+	$scope.data = {};
+	for (var p in $routeParams) {
+	    if ($routeParams.hasOwnProperty(p)){
+	    	$scope.data[p] = $routeParams[p];
+	    }
+	}
+	
 });

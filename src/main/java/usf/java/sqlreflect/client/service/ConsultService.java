@@ -91,12 +91,12 @@ public class ConsultService {
 	@Path("views")
 	public Response<Table> getViews(
 			@QueryParam("databasePattern") String databasePattern,  
-			@QueryParam("viewPattern") String viewPattern){
-		System.out.println("TABLES : " + "database="+databasePattern + " & view=" + viewPattern);
+			@QueryParam("tablePattern") String tablePattern){
+		System.out.println("TABLES : " + "database="+databasePattern + " & view=" + tablePattern);
 		Response<Table> res = new Response<Table>();
 		CustomAdapter<Table> adapter = new CustomAdapter<Table>();
 		try {
-			new TableScanner(cm).set(databasePattern, viewPattern, false, TableTypes.VIEW).run(adapter);
+			new TableScanner(cm).set(databasePattern, tablePattern, false, TableTypes.VIEW).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
