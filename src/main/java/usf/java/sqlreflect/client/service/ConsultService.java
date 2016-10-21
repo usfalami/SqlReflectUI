@@ -275,6 +275,17 @@ public class ConsultService {
 		System.out.println("Connexion opned : " + cm.isValid());
 	}
 
+	
+//	server=usf.java.sqlreflect.server.*****
+//
+//	env.host=******
+//	env.port=****
+//	env.params=*******
+//	env.database=******
+	
+//	user.login=******
+//	user.password=*****
+	
 	static { // user context listner
 		try {
 
