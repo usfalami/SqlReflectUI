@@ -26,7 +26,8 @@
 				<td ng-repeat="h in head" ng-bind="r.fields[h]"></td>
 				<td>
 					<a href="#columns/{{r.fields['TABLE_SCHEM']}}/{{r.fields['TABLE_NAME']}}">Columns</a>|
-					<a href="#primaryKeys/{{r.fields['TABLE_SCHEM']}}/{{r.fields['TABLE_NAME']}}">P.K</a>
+					<a href="#primaryKeys/{{r.fields['TABLE_SCHEM']}}/{{r.fields['TABLE_NAME']}}">P.K</a>|
+					<a href="#rows/SELECT * FROM {{r.fields['TABLE_NAME']}}">data</a>|
 				</td>
 			</tr>
 		</table>
