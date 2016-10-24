@@ -2,6 +2,7 @@ package usf.java.sqlreflect.client.service;
 
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 import javax.ws.rs.GET;
@@ -65,12 +66,18 @@ public class ConsultService {
 	@Path("tables")
 	public Response<Table> getTables(
 			@QueryParam("databasePattern") String databasePattern,  
-			@QueryParam("tablePattern") String tablePattern){
-		System.out.println("TABLES : " + "database="+databasePattern + " & table=" + tablePattern);
+			@QueryParam("tablePattern") String tablePattern, 
+			@QueryParam("tableType") List<String> tableType){
 		Response<Table> res = new Response<Table>();
 		CustomAdapter<Table> adapter = new CustomAdapter<Table>();
 		try {
-			new TableScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, tablePattern, false).run(adapter);
+			TableTypes[] types = null;
+			if(tableType != null && !tableType.isEmpty()){
+				types = new TableTypes[tableType.size()];
+				for(int i=0; i<tableType.size(); i++) 
+					types[i] = TableTypes.valueOf(tableType.get(i));
+			}
+			new TableScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, tablePattern, false, types).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();

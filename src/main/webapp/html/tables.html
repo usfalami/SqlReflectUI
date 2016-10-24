@@ -11,8 +11,20 @@
 		<div>
 			<label>Table pattern</label> <input type="text" ng-model="data.tablePattern">
 		</div>
-		<input type="submit" ng-disabled="searching">
-		<input type="reset" ng-disabled="searching" ng-click="reset()">
+		<div>
+			<label>Type </label>
+			<select ng-model="data.tableType" multiple="multiple">
+				<option>TABLE</option>
+				<option>VIEW</option>
+				<option>SYSTEM_TABLE</option>
+				<option>GLOBAL_TEMPORARY</option>
+				<option>LOCAL_TEMPORARY</option>
+				<option>ALIAS</option>
+				<option>SYNONYM</option>
+			</select>
+		</div>
+		<input type="submit" ng-disabled="searching"> <input
+			type="reset" ng-disabled="searching" ng-click="reset()">
 	</form>
 
 	<div ng-show="rows">
@@ -24,17 +36,16 @@
 			</tr>
 			<tr ng-repeat="r in rows">
 				<td ng-repeat="h in head" ng-bind="r.fields[h]"></td>
-				<td>
-					<a href="#columns/{{r.fields['DATABASE_NAME']}}/{{r.fields['TABLE_NAME']}}">Columns</a>|
+				<td><a href="#columns/{{r.fields['DATABASE_NAME']}}/{{r.fields['TABLE_NAME']}}">Columns</a>|
 					<a href="#primaryKeys/{{r.fields['DATABASE_NAME']}}/{{r.fields['TABLE_NAME']}}">P.K</a>|
 					<a href="#rows/SELECT * FROM {{r.fields['DATABASE_NAME']}}.{{r.fields['TABLE_NAME']}}">data</a>|
 				</td>
 			</tr>
 		</table>
 	</div>
-	
+
 	<action-timer timer="perf" />
-	
+
 </body>
 
 </html>
