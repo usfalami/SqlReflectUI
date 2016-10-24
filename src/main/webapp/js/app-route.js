@@ -17,8 +17,8 @@ angular.module('app')
 	.when('/procedures/:databasePattern?/:procedurePattern?',					{templateUrl: 'html/procedures.html', controller: 'consult'})
 	.when('/arguments/:databasePattern?/:procedurePattern?/:argumentPattern?',	{templateUrl: 'html/arguments.html', controller: 'consult'})
 	.when('/nativeFunctions', 													{templateUrl: 'html/native_functions.html', controller: 'consult'})
-	.when('/rows', 																{templateUrl: 'html/rows.html', controller: 'consult'})
-	.when('/headers', 															{templateUrl: 'html/headers.html', controller: 'consult'})
+	.when('/rows/:query?', 														{templateUrl: 'html/rows.html', controller: 'consult'})
+	.when('/headers/:query?', 													{templateUrl: 'html/headers.html', controller: 'consult'})
 	.otherwise({redirectTo: '/home'});
 
 }]);
