@@ -26,7 +26,7 @@
 			<tr ng-repeat="r in rows">
 				<td ng-repeat="h in head" ng-bind="r.fields[h]"></td>
 				<td>
-					<a href="#tables/{{r.fields['TABLE_SCHEM']}}">Tables</a>|
+					<a href="#tables/{{r.fields['DATABASE_NAME']}}">Tables</a>|
 					<a href="#views/{{r.fields['TABLE_SCHEM']}}">Views</a>
 				</td>
 			</tr>

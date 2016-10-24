@@ -27,14 +27,14 @@ import usf.java.sqlreflect.reflect.scanner.field.PrimaryKeyScanner;
 import usf.java.sqlreflect.reflect.scanner.field.ProcedureScanner;
 import usf.java.sqlreflect.reflect.scanner.field.TableScanner;
 import usf.java.sqlreflect.server.Server;
-import usf.java.sqlreflect.sql.item.Argument;
-import usf.java.sqlreflect.sql.item.Column;
-import usf.java.sqlreflect.sql.item.Database;
-import usf.java.sqlreflect.sql.item.Header;
-import usf.java.sqlreflect.sql.item.PrimaryKey;
-import usf.java.sqlreflect.sql.item.Procedure;
-import usf.java.sqlreflect.sql.item.Row;
-import usf.java.sqlreflect.sql.item.Table;
+import usf.java.sqlreflect.sql.entry.data.Header;
+import usf.java.sqlreflect.sql.entry.data.Row;
+import usf.java.sqlreflect.sql.entry.item.Argument;
+import usf.java.sqlreflect.sql.entry.item.Column;
+import usf.java.sqlreflect.sql.entry.item.Database;
+import usf.java.sqlreflect.sql.entry.item.PrimaryKey;
+import usf.java.sqlreflect.sql.entry.item.Procedure;
+import usf.java.sqlreflect.sql.entry.item.Table;
 import usf.java.sqlreflect.sql.type.NativeFunctions;
 import usf.java.sqlreflect.sql.type.TableTypes;
 
@@ -49,7 +49,7 @@ public class ConsultService {
 		Response<Database> res = new Response<Database>();
 		CustomAdapter<Database> adapter = new CustomAdapter<Database>();
 		try {
-			new DatabaseScanner(new SimpleConnectionManager(cp)).run(adapter);
+			new DatabaseScanner(new SimpleConnectionManager(cp, server)).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,7 +70,7 @@ public class ConsultService {
 		Response<Table> res = new Response<Table>();
 		CustomAdapter<Table> adapter = new CustomAdapter<Table>();
 		try {
-			new TableScanner(new SimpleConnectionManager(cp)).set(databasePattern, tablePattern, false).run(adapter);
+			new TableScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, tablePattern, false).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -91,7 +91,7 @@ public class ConsultService {
 		Response<Table> res = new Response<Table>();
 		CustomAdapter<Table> adapter = new CustomAdapter<Table>();
 		try {
-			new TableScanner(new SimpleConnectionManager(cp)).set(databasePattern, tablePattern, false, TableTypes.VIEW).run(adapter);
+			new TableScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, tablePattern, false, TableTypes.VIEW).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -114,7 +114,7 @@ public class ConsultService {
 		Response<Column> res = new Response<Column>();
 		CustomAdapter<Column> adapter = new CustomAdapter<Column>();
 		try {
-			new ColumnScanner(new SimpleConnectionManager(cp)).set(databasePattern, tablePattern, columnPattern).run(adapter);
+			new ColumnScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, tablePattern, columnPattern).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -136,7 +136,7 @@ public class ConsultService {
 		Response<PrimaryKey> res = new Response<PrimaryKey>();
 		CustomAdapter<PrimaryKey> adapter = new CustomAdapter<PrimaryKey>();
 		try {
-			new PrimaryKeyScanner(new SimpleConnectionManager(cp)).set(databasePattern, tablePattern).run(adapter);
+			new PrimaryKeyScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, tablePattern).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -157,7 +157,7 @@ public class ConsultService {
 		Response<Procedure> res = new Response<Procedure>();
 		CustomAdapter<Procedure> adapter = new CustomAdapter<Procedure>();
 		try {
-			new ProcedureScanner(new SimpleConnectionManager(cp)).set(databasePattern, procedurePattern, false).run(adapter);
+			new ProcedureScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, procedurePattern, false).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -181,7 +181,7 @@ public class ConsultService {
 		Response<Argument> res = new Response<Argument>();
 		CustomAdapter<Argument> adapter = new CustomAdapter<Argument>();
 		try {
-			new ArgumentScanner(new SimpleConnectionManager(cp)).set(databasePattern, procedurePattern, argumentPattern).run(adapter);
+			new ArgumentScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, procedurePattern, argumentPattern).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -203,7 +203,7 @@ public class ConsultService {
 		CustomAdapter<String> adapter = new CustomAdapter<String>();
 		try {
 			NativeFunctions nf = NativeFunctions.valueOf(nativeFunction);
-			new NativeFunctionScanner(new SimpleConnectionManager(cp)).set(nf).run(adapter);
+			new NativeFunctionScanner(new SimpleConnectionManager(cp, server)).set(nf).run(adapter);
 			res = adaptToReponse(adapter, "Name");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -222,7 +222,7 @@ public class ConsultService {
 		Response<Row> res = new Response<Row>();
 		CustomAdapter<Row> adapter = new CustomAdapter<Row>();
 		try {
-			new RowScanner<Void, Row>(new SimpleConnectionManager(cp), new RowMapper()).set(query).run(adapter);
+			new RowScanner<Void, Row>(new SimpleConnectionManager(cp, server), new RowMapper()).set(query).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -241,7 +241,7 @@ public class ConsultService {
 		Response<Header> res = new Response<Header>();
 		CustomAdapter<Header> adapter = new CustomAdapter<Header>();
 		try {
-			new HeaderScanner<Void>(new SimpleConnectionManager(cp)).set(query).run(adapter);
+			new HeaderScanner<Void>(new SimpleConnectionManager(cp, server)).set(query).run(adapter);
 			res = adaptToReponse(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -280,6 +280,7 @@ public class ConsultService {
 //	user.password=*****
 	
 	private ConnectionProvider cp;
+	private Server server;
 	
 	public ConsultService() {
 		try {
@@ -287,7 +288,7 @@ public class ConsultService {
 			Properties properties = new Properties();
 			properties.load(inputStream);
 			
-			Server server = (Server) Class.forName(properties.getProperty("server")).newInstance();
+			this.server = (Server) Class.forName(properties.getProperty("server")).newInstance();
 			Class.forName(server.getDriver());
 			
 			this.cp = new SimpleConnectionProvider(server, properties);

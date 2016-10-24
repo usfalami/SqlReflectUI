@@ -9,13 +9,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.sql.item.Argument;
-import usf.java.sqlreflect.sql.item.Column;
-import usf.java.sqlreflect.sql.item.Database;
-import usf.java.sqlreflect.sql.item.Header;
-import usf.java.sqlreflect.sql.item.Procedure;
-import usf.java.sqlreflect.sql.item.Row;
-import usf.java.sqlreflect.sql.item.Table;
+import usf.java.sqlreflect.sql.entry.data.Header;
+import usf.java.sqlreflect.sql.entry.data.Row;
+import usf.java.sqlreflect.sql.entry.item.Argument;
+import usf.java.sqlreflect.sql.entry.item.Column;
+import usf.java.sqlreflect.sql.entry.item.Database;
+import usf.java.sqlreflect.sql.entry.item.Procedure;
+import usf.java.sqlreflect.sql.entry.item.Table;
 
 @XmlRootElement
 @XmlSeeAlso({Database.class, Table.class, Column.class, Procedure.class, Argument.class, Row.class, Header.class})
