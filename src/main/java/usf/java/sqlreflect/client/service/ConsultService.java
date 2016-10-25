@@ -68,6 +68,7 @@ public class ConsultService {
 			@QueryParam("databasePattern") String databasePattern,  
 			@QueryParam("tablePattern") String tablePattern, 
 			@QueryParam("tableType") List<String> tableType){
+		System.out.println("TABLES : " + "database="+databasePattern + " & view=" + tablePattern + " & types=" + Arrays.toString(tableType.toArray()));
 		Response<Table> res = new Response<Table>();
 		CustomAdapter<Table> adapter = new CustomAdapter<Table>();
 		try {
