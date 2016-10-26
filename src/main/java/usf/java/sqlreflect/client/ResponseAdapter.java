@@ -1,11 +1,8 @@
 package usf.java.sqlreflect.client;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
@@ -31,19 +28,17 @@ public class ResponseAdapter<T> extends ListAdapter<T> {
 	
 	@Override
 	public void prepare(Mapper<T> mapper) {
+		if(mapper != null)
 		this.columns = Arrays.asList(mapper.getColumnNames());
 	}
-
-	@XmlElementWrapper(name="columns")
-	@XmlElement(name="column")
+	
 	public List<String> getColumns() {
 		return columns;
 	}
-
-	@XmlElementWrapper(name="items")
-	@XmlElement(name="item")
-	public Collection<T> getList() {
-		return super.getList();
+	
+	public void setColumn(String columns){
+		this.columns = Arrays.asList(columns);
 	}
+
 	
 }

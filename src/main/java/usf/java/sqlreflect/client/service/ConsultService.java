@@ -174,6 +174,7 @@ public class ConsultService {
 		try {
 			NativeFunctions nf = NativeFunctions.valueOf(nativeFunction);
 			new NativeFunctionScanner(new SimpleConnectionManager(cp, server)).set(nf).run(res);
+			res.setColumn("Name");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
