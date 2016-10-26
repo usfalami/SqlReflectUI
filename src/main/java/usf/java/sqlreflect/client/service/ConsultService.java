@@ -16,6 +16,7 @@ import usf.java.sqlreflect.connection.manager.SimpleConnectionManager;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
 import usf.java.sqlreflect.mapper.RowMapper;
+import usf.java.sqlreflect.reflect.Reflector;
 import usf.java.sqlreflect.reflect.scanner.NativeFunctionScanner;
 import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.data.RowScanner;
@@ -44,14 +45,17 @@ public class ConsultService {
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("databases")
 	public ResponseAdapter<Database> getDatabases(@QueryParam("databasePattern") String databasePattern) {
-		System.out.println("DATABASES : " + "database="+databasePattern);
-		ResponseAdapter<Database> res = new ResponseAdapter<Database>();
+		showDetail("DatabaseScanner", databasePattern);
+		ResponseAdapter<Database> adapter = new ResponseAdapter<Database>();
 		try {
-			new DatabaseScanner(new SimpleConnectionManager(cp, server)).run(res);
+			new DatabaseScanner(new SimpleConnectionManager(cp, server)).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return res;
+		finally{
+			showDetail(adapter);
+		}
+		return adapter;
 	}
 	
 	@GET
@@ -61,8 +65,8 @@ public class ConsultService {
 			@QueryParam("databasePattern") String databasePattern,  
 			@QueryParam("tablePattern") String tablePattern, 
 			@QueryParam("tableType") List<String> tableType){
-		System.out.println("TABLES : " + "database="+databasePattern + " & view=" + tablePattern + " & types=" + Arrays.toString(tableType.toArray()));
-		ResponseAdapter<Table> res = new ResponseAdapter<Table>();
+		showDetail("TableScanner", databasePattern, tablePattern);
+		ResponseAdapter<Table> adapter = new ResponseAdapter<Table>();
 		try {
 			TableTypes[] types = null;
 			if(tableType != null && !tableType.isEmpty()){
@@ -70,11 +74,14 @@ public class ConsultService {
 				for(int i=0; i<tableType.size(); i++) 
 					types[i] = TableTypes.valueOf(tableType.get(i));
 			}
-			new TableScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, tablePattern, false, types).run(res);
+			new TableScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, tablePattern, false, types).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return res;
+		finally{
+			showDetail(adapter);
+		}
+		return adapter;
 	}
 	
 	@GET
@@ -83,14 +90,17 @@ public class ConsultService {
 	public ResponseAdapter<Table> getViews(
 			@QueryParam("databasePattern") String databasePattern,  
 			@QueryParam("tablePattern") String tablePattern){
-		System.out.println("TABLES : " + "database="+databasePattern + " & view=" + tablePattern);
-		ResponseAdapter<Table> res = new ResponseAdapter<Table>();
+		showDetail("TableScanner", databasePattern, tablePattern);
+		ResponseAdapter<Table> adapter = new ResponseAdapter<Table>();
 		try {
-			new TableScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, tablePattern, false, TableTypes.VIEW).run(res);
+			new TableScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, tablePattern, false, TableTypes.VIEW).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return res;
+		finally{
+			showDetail(adapter);
+		}
+		return adapter;
 	}
 	
 	@GET
@@ -100,15 +110,17 @@ public class ConsultService {
 			@QueryParam("databasePattern") String databasePattern,  
 			@QueryParam("tablePattern") String tablePattern,
 			@QueryParam("columnPattern") String columnPattern){
-		System.out.println("COLUMNS : " + "database="+databasePattern + " & table=" + tablePattern + " & column="+columnPattern);
-		
-		ResponseAdapter<Column> res = new ResponseAdapter<Column>();
+		showDetail("ColumnScanner", databasePattern, tablePattern, columnPattern);
+		ResponseAdapter<Column> adapter = new ResponseAdapter<Column>();
 		try {
-			new ColumnScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, tablePattern, columnPattern).run(res);
+			new ColumnScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, tablePattern, columnPattern).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return res;
+		finally{
+			showDetail(adapter);
+		}
+		return adapter;
 	}
 	
 	@GET
@@ -117,15 +129,17 @@ public class ConsultService {
 	public ResponseAdapter<PrimaryKey> getPrimaryKeys(
 			@QueryParam("databasePattern") String databasePattern,  
 			@QueryParam("tablePattern") String tablePattern){
-		System.out.println("PRIMARY_KEYS : " + "database="+databasePattern + " & table=" + tablePattern);
-		
-		ResponseAdapter<PrimaryKey> res = new ResponseAdapter<PrimaryKey>();
+		showDetail("PrimaryKeyScanner", databasePattern, tablePattern);
+		ResponseAdapter<PrimaryKey> adapter = new ResponseAdapter<PrimaryKey>();
 		try {
-			new PrimaryKeyScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, tablePattern).run(res);
+			new PrimaryKeyScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, tablePattern).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return res;
+		finally{
+			showDetail(adapter);
+		}
+		return adapter;
 	}
 	
 	@GET
@@ -134,14 +148,17 @@ public class ConsultService {
 	public ResponseAdapter<Procedure> getProcedures(
 			@QueryParam("databasePattern") String databasePattern,  
 			@QueryParam("procedurePattern") String procedurePattern){
-		System.out.println("PROCEDURES : " + "database="+databasePattern + " & procedure=" + procedurePattern);
-		ResponseAdapter<Procedure> res = new ResponseAdapter<Procedure>();
+		showDetail("ProcedureScanner", databasePattern, procedurePattern);
+		ResponseAdapter<Procedure> adapter = new ResponseAdapter<Procedure>();
 		try {
-			new ProcedureScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, procedurePattern, false).run(res);
+			new ProcedureScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, procedurePattern, false).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return res;
+		finally{
+			showDetail(adapter);
+		}
+		return adapter;
 	}
 	
 	
@@ -152,15 +169,17 @@ public class ConsultService {
 			@QueryParam("databasePattern") String databasePattern,  
 			@QueryParam("procedurePattern") String procedurePattern,
 			@QueryParam("argumentPattern") String argumentPattern){
-		System.out.println("COLUMNS : " + "database="+databasePattern + " & procedure=" + procedurePattern + " & column="+argumentPattern);
-		
-		ResponseAdapter<Argument> res = new ResponseAdapter<Argument>();
+		showDetail("ArgumentScanner", databasePattern, procedurePattern, argumentPattern);
+		ResponseAdapter<Argument> adapter = new ResponseAdapter<Argument>();
 		try {
-			new ArgumentScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, procedurePattern, argumentPattern).run(res);
+			new ArgumentScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, procedurePattern, argumentPattern).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return res;
+		finally{
+			showDetail(adapter);
+		}
+		return adapter;
 	}
 	
 	@GET
@@ -168,45 +187,65 @@ public class ConsultService {
 	@Path("nativeFunctions")
 	public ResponseAdapter<String> getNativeFunction(
 			@QueryParam("nativeFunction") String nativeFunction){
-		System.out.println("NativeFunction : " + "pattern="+nativeFunction);
-		
-		ResponseAdapter<String> res = new ResponseAdapter<String>();
+		showDetail("NativeFunctions", nativeFunction);
+		ResponseAdapter<String> adapter = new ResponseAdapter<String>();
 		try {
 			NativeFunctions nf = NativeFunctions.valueOf(nativeFunction);
-			new NativeFunctionScanner(new SimpleConnectionManager(cp, server)).set(nf).run(res);
-			res.setColumn("Name");
+			new NativeFunctionScanner(new SimpleConnectionManager(cp, server)).set(nf).run(adapter);
+			adapter.setColumn("Name");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return res;
+		finally{
+			showDetail(adapter);
+		}
+		return adapter;
 	}
 
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("rows")
 	public ResponseAdapter<Row> getRows(@QueryParam("query") String query){
-		System.out.println("ROWS : " + "query=" + query);
-		ResponseAdapter<Row> res = new ResponseAdapter<Row>();
+		showDetail("RowScanner", query);
+		ResponseAdapter<Row> adapter = new ResponseAdapter<Row>();
 		try {
-			new RowScanner<Void, Row>(new SimpleConnectionManager(cp, server), new RowMapper()).set(query).run(res);
+			new RowScanner<Void, Row>(new SimpleConnectionManager(cp, server), new RowMapper()).set(query).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return res;
+		finally{
+			showDetail(adapter);
+		}
+		return adapter;
 	}
 	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("headers")
 	public ResponseAdapter<Header> getHeaders(@QueryParam("query") String query){
-		System.out.println("HEADERS : " + "query=" + query);
-		ResponseAdapter<Header> res = new ResponseAdapter<Header>();
+		showDetail("HeaderScanner", query);
+		ResponseAdapter<Header> adapter = new ResponseAdapter<Header>();
 		try {
-			new HeaderScanner<Void>(new SimpleConnectionManager(cp, server)).set(query).run(res);
+			new HeaderScanner<Void>(new SimpleConnectionManager(cp, server)).set(query).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return res;
+		finally{
+			showDetail(adapter);
+		}
+		return adapter;
+	}
+	
+	private void showDetail(String reflector, String... args) {
+		System.out.print("["+ reflector + "]\t");
+		if(Reflector.Utils.isEmpty(args)) return;
+		System.out.print("Query : " + args[0]);
+		for(int i=1; i<args.length; i++)
+			System.out.print("."+args[i]);
+		System.out.println();
+	}
+	private void showDetail(ResponseAdapter<?> adapter) {
+		System.out.println(adapter.getList().size() + "rows in " + adapter.getActionTimer().duration() + "ms");
 	}
 
 	
