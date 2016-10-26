@@ -1,7 +1,6 @@
 package usf.java.sqlreflect.client.service;
 
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -37,7 +36,6 @@ import usf.java.sqlreflect.sql.entry.item.Procedure;
 import usf.java.sqlreflect.sql.entry.item.Table;
 import usf.java.sqlreflect.sql.type.NativeFunctions;
 import usf.java.sqlreflect.sql.type.TableTypes;
-
 @Path("")
 public class ConsultService {
 
@@ -53,7 +51,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			showDetail(adapter);
+			showDetail("DatabaseScanner", adapter);
 		}
 		return adapter;
 	}
@@ -79,7 +77,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			showDetail(adapter);
+			showDetail("TableScanner", adapter);
 		}
 		return adapter;
 	}
@@ -98,7 +96,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			showDetail(adapter);
+			showDetail("TableScanner", adapter);
 		}
 		return adapter;
 	}
@@ -118,7 +116,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			showDetail(adapter);
+			showDetail("ColumnScanner", adapter);
 		}
 		return adapter;
 	}
@@ -137,7 +135,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			showDetail(adapter);
+			showDetail("PrimaryKeyScanner", adapter);
 		}
 		return adapter;
 	}
@@ -156,7 +154,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			showDetail(adapter);
+			showDetail("ProcedureScanner", adapter);
 		}
 		return adapter;
 	}
@@ -177,7 +175,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			showDetail(adapter);
+			showDetail("ArgumentScanner", adapter);
 		}
 		return adapter;
 	}
@@ -197,7 +195,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			showDetail(adapter);
+			showDetail("NativeFunctions", adapter);
 		}
 		return adapter;
 	}
@@ -214,7 +212,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			showDetail(adapter);
+			showDetail("RowScanner", adapter);
 		}
 		return adapter;
 	}
@@ -231,7 +229,7 @@ public class ConsultService {
 			e.printStackTrace();
 		}
 		finally{
-			showDetail(adapter);
+			showDetail("HeaderScanner", adapter);
 		}
 		return adapter;
 	}
@@ -239,13 +237,14 @@ public class ConsultService {
 	private void showDetail(String reflector, String... args) {
 		System.out.print("["+ reflector + "]\t");
 		if(Reflector.Utils.isEmpty(args)) return;
-		System.out.print("Query : " + args[0]);
+		System.out.print("Query : " + (Reflector.Utils.isEmpty(args[0]) ? "*" : args[0]));
 		for(int i=1; i<args.length; i++)
-			System.out.print("."+args[i]);
+			System.out.print("."+ (Reflector.Utils.isEmpty(args[i]) ? "*" : args[i]));
 		System.out.println();
 	}
-	private void showDetail(ResponseAdapter<?> adapter) {
-		System.out.println(adapter.getList().size() + "rows in " + adapter.getActionTimer().duration() + "ms");
+	private void showDetail(String reflector, ResponseAdapter<?> adapter) {
+		System.out.print("["+ reflector + "]\t");
+		System.out.println(adapter.getList().size() + " rows in " + adapter.getActionTimer().duration() + "ms");
 	}
 
 	
