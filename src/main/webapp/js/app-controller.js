@@ -26,7 +26,7 @@ angular.module('app')
 	$scope.reset = function(){
 		$scope.head = null;
 		$scope.rows = null;
-		$scope.perf = null;
+		$scope.time = null;
 	};
 
 	$scope.data = {};
