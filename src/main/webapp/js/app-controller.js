@@ -15,7 +15,7 @@ angular.module('app')
 				$scope.searching = false;
 				$scope.head = data.columns;
 				$scope.rows = data.list; //@see @XmlElementWrapper(name="items")
-				$scope.perf = data.actionTimer;
+				$scope.time = data.actionTimer;
 			})
 			.error(function(error, status){
 				$scope.searching = false;
