@@ -16,7 +16,6 @@ import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
 import usf.java.sqlreflect.mapper.EntryMapper;
 import usf.java.sqlreflect.mapper.Mapper;
-import usf.java.sqlreflect.reflect.Reflector;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.reflect.scanner.NativeFunctionScanner;
 import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
@@ -28,14 +27,14 @@ import usf.java.sqlreflect.reflect.scanner.field.PrimaryKeyScanner;
 import usf.java.sqlreflect.reflect.scanner.field.ProcedureScanner;
 import usf.java.sqlreflect.reflect.scanner.field.TableScanner;
 import usf.java.sqlreflect.server.Server;
-import usf.java.sqlreflect.sql.entry.data.Header;
-import usf.java.sqlreflect.sql.entry.data.Row;
-import usf.java.sqlreflect.sql.entry.item.Argument;
-import usf.java.sqlreflect.sql.entry.item.Column;
-import usf.java.sqlreflect.sql.entry.item.Database;
-import usf.java.sqlreflect.sql.entry.item.PrimaryKey;
-import usf.java.sqlreflect.sql.entry.item.Procedure;
-import usf.java.sqlreflect.sql.entry.item.Table;
+import usf.java.sqlreflect.sql.entry.Argument;
+import usf.java.sqlreflect.sql.entry.Column;
+import usf.java.sqlreflect.sql.entry.Database;
+import usf.java.sqlreflect.sql.entry.Entry;
+import usf.java.sqlreflect.sql.entry.Header;
+import usf.java.sqlreflect.sql.entry.PrimaryKey;
+import usf.java.sqlreflect.sql.entry.Procedure;
+import usf.java.sqlreflect.sql.entry.Table;
 import usf.java.sqlreflect.sql.type.NativeFunctions;
 import usf.java.sqlreflect.sql.type.TableTypes;
 @Path("")
@@ -205,12 +204,12 @@ public class ConsultService {
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("rows")
-	public ResponseAdapter<Row> getRows(@QueryParam("query") String query){
+	public ResponseAdapter<Entry> getRows(@QueryParam("query") String query){
 		showDetail("RowScanner", query);
-		ResponseAdapter<Row> adapter = new ResponseAdapter<Row>();
+		ResponseAdapter<Entry> adapter = new ResponseAdapter<Entry>();
 		try {
-			Mapper<Row> mapper = new EntryMapper<Row>(Row.class);
-			new RowScanner<Void, Row>(new SimpleConnectionManager(cp, server), mapper).set(query).run(adapter);
+			Mapper<Entry> mapper = new EntryMapper<Entry>(Entry.class);
+			new RowScanner<Void, Entry>(new SimpleConnectionManager(cp, server), mapper).set(query).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -8,16 +8,17 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 
 import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.mapper.Mapper;
-import usf.java.sqlreflect.sql.entry.data.Header;
-import usf.java.sqlreflect.sql.entry.data.Row;
-import usf.java.sqlreflect.sql.entry.item.Argument;
-import usf.java.sqlreflect.sql.entry.item.Column;
-import usf.java.sqlreflect.sql.entry.item.Database;
-import usf.java.sqlreflect.sql.entry.item.Procedure;
-import usf.java.sqlreflect.sql.entry.item.Table;
+import usf.java.sqlreflect.reflect.ActionTimer;
+import usf.java.sqlreflect.sql.entry.Argument;
+import usf.java.sqlreflect.sql.entry.Column;
+import usf.java.sqlreflect.sql.entry.Database;
+import usf.java.sqlreflect.sql.entry.Entry;
+import usf.java.sqlreflect.sql.entry.Header;
+import usf.java.sqlreflect.sql.entry.Procedure;
+import usf.java.sqlreflect.sql.entry.Table;
 
 @XmlRootElement
-@XmlSeeAlso({Database.class, Table.class, Column.class, Procedure.class, Argument.class, Row.class, Header.class})
+@XmlSeeAlso({Entry.class, Database.class, Table.class, Column.class, Procedure.class, Argument.class, Header.class, ActionTimer.class})
 public class ResponseAdapter<T> extends ListAdapter<T> {
 	
 	private List<String> columns;
