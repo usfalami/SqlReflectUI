@@ -14,8 +14,10 @@ import usf.java.sqlreflect.client.ResponseAdapter;
 import usf.java.sqlreflect.connection.manager.SimpleConnectionManager;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
-import usf.java.sqlreflect.mapper.RowMapper;
+import usf.java.sqlreflect.mapper.EntryMapper;
+import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.Reflector;
+import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.reflect.scanner.NativeFunctionScanner;
 import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.data.RowScanner;
@@ -207,7 +209,8 @@ public class ConsultService {
 		showDetail("RowScanner", query);
 		ResponseAdapter<Row> adapter = new ResponseAdapter<Row>();
 		try {
-			new RowScanner<Void, Row>(new SimpleConnectionManager(cp, server), new RowMapper()).set(query).run(adapter);
+			Mapper<Row> mapper = new EntryMapper<Row>(Row.class);
+			new RowScanner<Void, Row>(new SimpleConnectionManager(cp, server), mapper).set(query).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -236,10 +239,10 @@ public class ConsultService {
 	
 	private void showDetail(String reflector, String... args) {
 		System.out.print("["+ reflector + "]\t");
-		if(Reflector.Utils.isEmpty(args)) return;
-		System.out.print("Query : " + (Reflector.Utils.isEmpty(args[0]) ? "*" : args[0]));
+		if(Utils.isEmptyArray(args)) return;
+		System.out.print("Query : " + (Utils.isEmptyString(args[0]) ? "*" : args[0]));
 		for(int i=1; i<args.length; i++)
-			System.out.print("."+ (Reflector.Utils.isEmpty(args[i]) ? "*" : args[i]));
+			System.out.print("."+ (Utils.isEmptyString(args[i]) ? "*" : args[i]));
 		System.out.println();
 	}
 	private void showDetail(String reflector, ResponseAdapter<?> adapter) {
