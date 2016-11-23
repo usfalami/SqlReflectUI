@@ -30,14 +30,14 @@ public class ResponseAdapter<T> extends ListAdapter<T> {
 	@Override
 	public void prepare(Mapper<T> mapper) {
 		if(mapper != null)
-			setColumn(mapper.getColumnNames());
+			setColumns(mapper.getColumnNames());
 	}
 	
 	public List<String> getColumns() {
 		return columns;
 	}
 	
-	public void setColumn(String... columns){
+	public void setColumns(String... columns){
 		this.columns = Arrays.asList(columns);
 	}
 

@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
 
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -11,7 +12,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import usf.java.sqlreflect.client.ResponseAdapter;
-import usf.java.sqlreflect.connection.manager.SimpleConnectionManager;
+import usf.java.sqlreflect.connection.manager.ConnectionManagerImpl;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
 import usf.java.sqlreflect.mapper.EntryMapper;
@@ -47,7 +48,7 @@ public class ConsultService {
 		showDetail("DatabaseScanner", databasePattern);
 		ResponseAdapter<Database> adapter = new ResponseAdapter<Database>();
 		try {
-			new DatabaseScanner(new SimpleConnectionManager(cp, server)).run(adapter);
+			new DatabaseScanner(new ConnectionManagerImpl(cp, server)).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -73,7 +74,7 @@ public class ConsultService {
 				for(int i=0; i<tableType.size(); i++) 
 					types[i] = TableTypes.valueOf(tableType.get(i));
 			}
-			new TableScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, tablePattern, false, types).run(adapter);
+			new TableScanner(new ConnectionManagerImpl(cp, server)).set(databasePattern, tablePattern, false, types).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -92,7 +93,7 @@ public class ConsultService {
 		showDetail("TableScanner", databasePattern, tablePattern);
 		ResponseAdapter<Table> adapter = new ResponseAdapter<Table>();
 		try {
-			new TableScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, tablePattern, false, TableTypes.VIEW).run(adapter);
+			new TableScanner(new ConnectionManagerImpl(cp, server)).set(databasePattern, tablePattern, false, TableTypes.VIEW).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -112,7 +113,7 @@ public class ConsultService {
 		showDetail("ColumnScanner", databasePattern, tablePattern, columnPattern);
 		ResponseAdapter<Column> adapter = new ResponseAdapter<Column>();
 		try {
-			new ColumnScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, tablePattern, columnPattern).run(adapter);
+			new ColumnScanner(new ConnectionManagerImpl(cp, server)).set(databasePattern, tablePattern, columnPattern).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -131,7 +132,7 @@ public class ConsultService {
 		showDetail("PrimaryKeyScanner", databasePattern, tablePattern);
 		ResponseAdapter<PrimaryKey> adapter = new ResponseAdapter<PrimaryKey>();
 		try {
-			new PrimaryKeyScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, tablePattern).run(adapter);
+			new PrimaryKeyScanner(new ConnectionManagerImpl(cp, server)).set(databasePattern, tablePattern).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -150,7 +151,7 @@ public class ConsultService {
 		showDetail("ProcedureScanner", databasePattern, procedurePattern);
 		ResponseAdapter<Procedure> adapter = new ResponseAdapter<Procedure>();
 		try {
-			new ProcedureScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, procedurePattern, false).run(adapter);
+			new ProcedureScanner(new ConnectionManagerImpl(cp, server)).set(databasePattern, procedurePattern, false).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -171,7 +172,7 @@ public class ConsultService {
 		showDetail("ArgumentScanner", databasePattern, procedurePattern, argumentPattern);
 		ResponseAdapter<Argument> adapter = new ResponseAdapter<Argument>();
 		try {
-			new ArgumentScanner(new SimpleConnectionManager(cp, server)).set(databasePattern, procedurePattern, argumentPattern).run(adapter);
+			new ArgumentScanner(new ConnectionManagerImpl(cp, server)).set(databasePattern, procedurePattern, argumentPattern).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -185,13 +186,13 @@ public class ConsultService {
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("nativeFunctions")
 	public ResponseAdapter<String> getNativeFunction(
-			@QueryParam("nativeFunction") String nativeFunction){
+			@QueryParam("nativeFunction") @DefaultValue("STRING") String nativeFunction){
 		showDetail("NativeFunctions", nativeFunction);
 		ResponseAdapter<String> adapter = new ResponseAdapter<String>();
 		try {
 			NativeFunctions nf = NativeFunctions.valueOf(nativeFunction);
-			new NativeFunctionScanner(new SimpleConnectionManager(cp, server)).set(nf).run(adapter);
-			adapter.setColumn("Name");
+			new NativeFunctionScanner(new ConnectionManagerImpl(cp, server)).set(nf).run(adapter);
+			adapter.setColumns("Name");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -209,7 +210,7 @@ public class ConsultService {
 		ResponseAdapter<Entry> adapter = new ResponseAdapter<Entry>();
 		try {
 			Mapper<Entry> mapper = new EntryMapper<Entry>(Entry.class);
-			new RowScanner<Void, Entry>(new SimpleConnectionManager(cp, server), mapper).set(query).run(adapter);
+			new RowScanner<Void, Entry>(new ConnectionManagerImpl(cp, server), mapper).set(query).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -226,7 +227,7 @@ public class ConsultService {
 		showDetail("HeaderScanner", query);
 		ResponseAdapter<Header> adapter = new ResponseAdapter<Header>();
 		try {
-			new HeaderScanner<Void>(new SimpleConnectionManager(cp, server)).set(query).run(adapter);
+			new HeaderScanner<Void>(new ConnectionManagerImpl(cp, server)).set(query).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
