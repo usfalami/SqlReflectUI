@@ -11,6 +11,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.sun.jersey.spi.resource.Singleton;
+
 import usf.java.sqlreflect.client.ResponseAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManagerImpl;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
@@ -39,6 +41,7 @@ import usf.java.sqlreflect.sql.entry.Table;
 import usf.java.sqlreflect.sql.type.NativeFunctions;
 import usf.java.sqlreflect.sql.type.TableTypes;
 @Path("")
+@Singleton
 public class ConsultService {
 
 	@GET
