@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 import usf.java.sqlreflect.adapter.ListAdapter;
+import usf.java.sqlreflect.mapper.EntryMapper;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.sql.entry.Argument;
@@ -30,7 +31,7 @@ public class ResponseAdapter<T> extends ListAdapter<T> {
 	@Override
 	public void prepare(Mapper<T> mapper) {
 		if(mapper != null)
-			setColumns(mapper.getSelectedColumns());
+			setColumns(((EntryMapper<?>)mapper).getSelectedColumns());
 	}
 	
 	public List<String> getColumns() {
