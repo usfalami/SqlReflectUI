@@ -45,8 +45,8 @@ import usf.java.sqlreflect.sql.type.TableTypes;
 public class ConsultService {
 
 	@GET
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("databases")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public ResponseAdapter<Database> getDatabases(@QueryParam("databasePattern") String databasePattern) {
 		showDetail("DatabaseScanner", databasePattern);
 		ResponseAdapter<Database> adapter = new ResponseAdapter<Database>();
@@ -62,8 +62,8 @@ public class ConsultService {
 	}
 	
 	@GET
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("tables")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public ResponseAdapter<Table> getTables(
 			@QueryParam("databasePattern") String databasePattern,  
 			@QueryParam("tablePattern") String tablePattern, 
@@ -88,8 +88,8 @@ public class ConsultService {
 	}
 	
 	@GET
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("views")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public ResponseAdapter<Table> getViews(
 			@QueryParam("databasePattern") String databasePattern,  
 			@QueryParam("tablePattern") String tablePattern){
@@ -107,8 +107,8 @@ public class ConsultService {
 	}
 	
 	@GET
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("columns")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public ResponseAdapter<Column> getColumns(
 			@QueryParam("databasePattern") String databasePattern,  
 			@QueryParam("tablePattern") String tablePattern,
@@ -127,8 +127,8 @@ public class ConsultService {
 	}
 	
 	@GET
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("primaryKeys")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public ResponseAdapter<PrimaryKey> getPrimaryKeys(
 			@QueryParam("databasePattern") String databasePattern,  
 			@QueryParam("tablePattern") String tablePattern){
@@ -146,8 +146,8 @@ public class ConsultService {
 	}
 	
 	@GET
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("procedures")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public ResponseAdapter<Procedure> getProcedures(
 			@QueryParam("databasePattern") String databasePattern,  
 			@QueryParam("procedurePattern") String procedurePattern){
@@ -166,8 +166,8 @@ public class ConsultService {
 	
 	
 	@GET
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("arguments")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public ResponseAdapter<Argument> getArguments(
 			@QueryParam("databasePattern") String databasePattern,  
 			@QueryParam("procedurePattern") String procedurePattern,
@@ -186,8 +186,8 @@ public class ConsultService {
 	}
 	
 	@GET
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("nativeFunctions")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public ResponseAdapter<String> getNativeFunction(
 			@QueryParam("nativeFunction") @DefaultValue("STRING") String nativeFunction){
 		showDetail("NativeFunctions", nativeFunction);
@@ -206,8 +206,8 @@ public class ConsultService {
 	}
 
 	@GET
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("rows")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public ResponseAdapter<Entry> getRows(@QueryParam("query") String query){
 		showDetail("RowScanner", query);
 		ResponseAdapter<Entry> adapter = new ResponseAdapter<Entry>();
@@ -224,8 +224,8 @@ public class ConsultService {
 	}
 	
 	@GET
-	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Path("headers")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public ResponseAdapter<Header> getHeaders(@QueryParam("query") String query){
 		showDetail("HeaderScanner", query);
 		ResponseAdapter<Header> adapter = new ResponseAdapter<Header>();
