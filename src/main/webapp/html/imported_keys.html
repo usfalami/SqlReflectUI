@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+	<h1>Imported Keys</h1>
+	<form ng-submit="submit('service/importedKeys')">
+		<div>
+			<label>Database pattern</label> <input type="text" ng-model="data.databasePattern">
+		</div>
+		<div>
+ 			<label>Table pattern</label> <input type="text" ng-model="data.tablePattern">
+		</div>
+		<input type="submit" ng-disabled="searching">
+		<input type="reset" ng-disabled="searching" ng-click="reset()">
+	</form>
+
+	<div ng-show="rows">
+		<h3>Results ({{rows.length}})</h3>
+		<table border="1">
+			<tr>
+				<th ng-repeat="h in head" ng-bind="h"></th>
+			</tr>
+			<tr ng-repeat="r in rows">
+				<td ng-repeat="h in head" ng-bind="r.fields[h]"></td>
+			</tr>
+		</table>
+	</div>
+	
+	<action-timer timer="time" />
+	
+</body>
+
+</html>

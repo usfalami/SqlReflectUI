@@ -26,6 +26,7 @@ import usf.java.sqlreflect.reflect.scanner.data.RowScanner;
 import usf.java.sqlreflect.reflect.scanner.field.ArgumentScanner;
 import usf.java.sqlreflect.reflect.scanner.field.ColumnScanner;
 import usf.java.sqlreflect.reflect.scanner.field.DatabaseScanner;
+import usf.java.sqlreflect.reflect.scanner.field.ImportedKeyScanner;
 import usf.java.sqlreflect.reflect.scanner.field.PrimaryKeyScanner;
 import usf.java.sqlreflect.reflect.scanner.field.ProcedureScanner;
 import usf.java.sqlreflect.reflect.scanner.field.TableScanner;
@@ -35,6 +36,7 @@ import usf.java.sqlreflect.sql.entry.Column;
 import usf.java.sqlreflect.sql.entry.Database;
 import usf.java.sqlreflect.sql.entry.Entry;
 import usf.java.sqlreflect.sql.entry.Header;
+import usf.java.sqlreflect.sql.entry.ImportedKey;
 import usf.java.sqlreflect.sql.entry.PrimaryKey;
 import usf.java.sqlreflect.sql.entry.Procedure;
 import usf.java.sqlreflect.sql.entry.Table;
@@ -145,6 +147,24 @@ public class ConsultService {
 		return adapter;
 	}
 	
+	@GET
+	@Path("importedKeys")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public ResponseAdapter<ImportedKey> getImportedKeys(
+			@QueryParam("databasePattern") String databasePattern,  
+			@QueryParam("tablePattern") String tablePattern){
+		showDetail("ImportedKeysScanner", databasePattern, tablePattern);
+		ResponseAdapter<ImportedKey> adapter = new ResponseAdapter<ImportedKey>();
+		try {
+			new ImportedKeyScanner(new ConnectionManagerImpl(cp, server)).set(databasePattern, tablePattern).run(adapter);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally{
+			showDetail("ImportedKeysScanner", adapter);
+		}
+		return adapter;
+	}
 	@GET
 	@Path("procedures")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
