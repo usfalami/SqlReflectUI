@@ -77,7 +77,7 @@ public class ConsultService {
 				for(int i=0; i<tableType.size(); i++) 
 					types[i] = TableTypes.valueOf(tableType.get(i));
 			}
-			new TableScanner(new ConnectionManagerImpl(cp, server)).set(databasePattern, tablePattern, false, types).run(adapter);
+			new TableScanner(new ConnectionManagerImpl(cp, server)).set(databasePattern, tablePattern, types).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -96,7 +96,7 @@ public class ConsultService {
 		showDetail("TableScanner", databasePattern, tablePattern);
 		ResponseAdapter<Table> adapter = new ResponseAdapter<Table>();
 		try {
-			new TableScanner(new ConnectionManagerImpl(cp, server)).set(databasePattern, tablePattern, false, TableTypes.VIEW).run(adapter);
+			new TableScanner(new ConnectionManagerImpl(cp, server)).set(databasePattern, tablePattern, TableTypes.VIEW).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -154,7 +154,7 @@ public class ConsultService {
 		showDetail("ProcedureScanner", databasePattern, procedurePattern);
 		ResponseAdapter<Procedure> adapter = new ResponseAdapter<Procedure>();
 		try {
-			new ProcedureScanner(new ConnectionManagerImpl(cp, server)).set(databasePattern, procedurePattern, false).run(adapter);
+			new ProcedureScanner(new ConnectionManagerImpl(cp, server)).set(databasePattern, procedurePattern).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
