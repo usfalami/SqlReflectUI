@@ -1,6 +1,8 @@
 package usf.java.sqlreflect.client;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -10,6 +12,7 @@ import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.mapper.EntryMapper;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
+import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.entry.Argument;
 import usf.java.sqlreflect.sql.entry.Column;
 import usf.java.sqlreflect.sql.entry.Database;
@@ -22,19 +25,22 @@ import usf.java.sqlreflect.sql.entry.Table;
 @XmlSeeAlso({Entry.class, Database.class, Table.class, Column.class, Procedure.class, Argument.class, Header.class, ActionTimer.class})
 public class ResponseAdapter<T> extends ListAdapter<T> {
 	
-	private List<String> columns;
+	private Collection<String> columns;
 
 	public ResponseAdapter() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
-	public void prepare(Mapper<T> mapper) {
-		if(mapper != null)
-			setColumns(((EntryMapper<?>)mapper).getSelectedColumns());
+	public void prepare(Collection<Header> headers) {
+		if(!Utils.isEmptyCollection(headers)) {
+			columns = new ArrayList<String>();
+			for(Header header : headers)
+				columns.add(header.getName());
+		}
 	}
 	
-	public List<String> getColumns() {
+	public Collection<String> getColumns() {
 		return columns;
 	}
 	
