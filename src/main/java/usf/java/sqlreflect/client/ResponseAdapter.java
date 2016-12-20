@@ -3,14 +3,11 @@ package usf.java.sqlreflect.client;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 import usf.java.sqlreflect.adapter.ListAdapter;
-import usf.java.sqlreflect.mapper.EntryMapper;
-import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.entry.Argument;
@@ -26,27 +23,20 @@ import usf.java.sqlreflect.sql.entry.Table;
 public class ResponseAdapter<T> extends ListAdapter<T> {
 	
 	private Collection<String> columns;
-
-	public ResponseAdapter() {
-		// TODO Auto-generated constructor stub
-	}
 	
 	@Override
-	public void prepare(Collection<Header> headers) {
+	public void prepare(Collection<Header> headers, Class<T> clazz) {
 		if(!Utils.isEmptyCollection(headers)) {
 			columns = new ArrayList<String>();
 			for(Header header : headers)
 				columns.add(header.getName());
 		}
 	}
-	
+
+	public void setColumns(String... columnNames) {
+		columns = Arrays.asList(columnNames);
+	}
 	public Collection<String> getColumns() {
 		return columns;
 	}
-	
-	public void setColumns(String... columns){
-		this.columns = Arrays.asList(columns);
-	}
-
-	
 }
