@@ -3,6 +3,7 @@ package usf.java.sqlreflect.client;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
@@ -25,11 +26,11 @@ public class ResponseAdapter<T> extends ListAdapter<T> {
 	private Collection<String> columns;
 	
 	@Override
-	public void prepare(Collection<Header> headers, Class<T> clazz) {
+	public void prepare(List<Header> headers, Class<T> clazz) {
 		if(!Utils.isEmptyCollection(headers)) {
 			columns = new ArrayList<String>();
 			for(Header header : headers)
-				columns.add(header.getColumnName());
+				columns.add(header.getPropertyName());
 		}
 	}
 

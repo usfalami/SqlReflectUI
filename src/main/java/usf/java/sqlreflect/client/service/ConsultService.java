@@ -17,8 +17,10 @@ import usf.java.sqlreflect.client.ResponseAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManagerImpl;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
-import usf.java.sqlreflect.mapper.EntryMapper;
+import usf.java.sqlreflect.mapper.EntryPropertyMapper;
+import usf.java.sqlreflect.mapper.FiltredMapper;
 import usf.java.sqlreflect.mapper.Mapper;
+import usf.java.sqlreflect.mapper.entry.EntryMapper;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.reflect.scanner.NativeFunctionScanner;
 import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
@@ -232,7 +234,7 @@ public class ConsultService {
 		showDetail("RowScanner", query);
 		ResponseAdapter<Entry> adapter = new ResponseAdapter<Entry>();
 		try {
-			Mapper<Entry> mapper = new EntryMapper<Entry>(Entry.class);
+			Mapper<Entry> mapper = new EntryMapper();
 			new RowScanner<Void, Entry>(new ConnectionManagerImpl(cp, server), mapper).set(query).run(adapter);
 		} catch (Exception e) {
 			e.printStackTrace();
