@@ -29,7 +29,7 @@ public class ResponseAdapter<T> extends ListAdapter<T> {
 		if(!Utils.isEmptyCollection(headers)) {
 			columns = new ArrayList<String>();
 			for(Header header : headers)
-				columns.add(header.getName());
+				columns.add(header.getColumnName());
 		}
 	}
 
