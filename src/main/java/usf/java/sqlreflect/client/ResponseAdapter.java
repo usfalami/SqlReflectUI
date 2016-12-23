@@ -3,12 +3,12 @@ package usf.java.sqlreflect.client;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 import usf.java.sqlreflect.adapter.ListAdapter;
+import usf.java.sqlreflect.mapper.filter.Metadata;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.entry.Argument;
@@ -26,10 +26,10 @@ public class ResponseAdapter<T> extends ListAdapter<T> {
 	private Collection<String> columns;
 	
 	@Override
-	public void prepare(List<Header> headers, Class<T> clazz) {
+	public void prepare(Collection<Metadata> headers, Class<T> clazz) {
 		if(!Utils.isEmptyCollection(headers)) {
 			columns = new ArrayList<String>();
-			for(Header header : headers)
+			for(Metadata header : headers)
 				columns.add(header.getPropertyName());
 		}
 	}
