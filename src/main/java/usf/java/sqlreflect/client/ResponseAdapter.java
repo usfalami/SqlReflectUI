@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 import usf.java.sqlreflect.adapter.ListAdapter;
-import usf.java.sqlreflect.mapper.filter.Metadata;
+import usf.java.sqlreflect.mapper.Metadata;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.entry.Argument;
