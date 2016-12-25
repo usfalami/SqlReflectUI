@@ -26,7 +26,7 @@ public class ResponseAdapter<T> extends ListAdapter<T> {
 	private Collection<String> columns;
 	
 	@Override
-	public void prepare(Collection<Metadata> headers, Class<T> clazz) {
+	public void prepare(Class<T> clazz, Collection<Metadata> headers) {
 		if(!Utils.isEmptyCollection(headers)) {
 			columns = new ArrayList<String>();
 			for(Metadata header : headers)
