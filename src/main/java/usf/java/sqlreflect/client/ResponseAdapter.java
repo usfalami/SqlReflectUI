@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 import usf.java.sqlreflect.adapter.ListAdapter;
-import usf.java.sqlreflect.mapper.Metadata;
+import usf.java.sqlreflect.mapper.Property;
 import usf.java.sqlreflect.reflect.ActionTimer;
 import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.entry.Argument;
@@ -26,11 +26,11 @@ public class ResponseAdapter<T> extends ListAdapter<T> {
 	private Collection<String> columns;
 	
 	@Override
-	public void prepare(Class<T> clazz, Collection<Metadata> headers) {
+	public void prepare(Class<T> clazz, Collection<Property> headers) {
 		if(!Utils.isEmptyCollection(headers)) {
 			columns = new ArrayList<String>();
-			for(Metadata header : headers)
-				columns.add(header.getPropertyName());
+			for(Property header : headers)
+				columns.add(header.getName());
 		}
 	}
 
