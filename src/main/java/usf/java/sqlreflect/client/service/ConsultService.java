@@ -13,13 +13,13 @@ import javax.ws.rs.core.MediaType;
 
 import com.sun.jersey.spi.resource.Singleton;
 
+import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.client.ResponseAdapter;
 import usf.java.sqlreflect.connection.manager.ConnectionManagerImpl;
 import usf.java.sqlreflect.connection.provider.ConnectionProvider;
 import usf.java.sqlreflect.connection.provider.SimpleConnectionProvider;
 import usf.java.sqlreflect.mapper.Mapper;
 import usf.java.sqlreflect.mapper.entry.EntryMapper;
-import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.reflect.scanner.NativeFunctionScanner;
 import usf.java.sqlreflect.reflect.scanner.data.HeaderScanner;
 import usf.java.sqlreflect.reflect.scanner.data.RowScanner;

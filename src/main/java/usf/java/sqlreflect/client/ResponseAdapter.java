@@ -7,10 +7,10 @@ import java.util.Collection;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
+import usf.java.sqlreflect.Utils;
 import usf.java.sqlreflect.adapter.ListAdapter;
 import usf.java.sqlreflect.mapper.Property;
 import usf.java.sqlreflect.reflect.ActionTimer;
-import usf.java.sqlreflect.reflect.Utils;
 import usf.java.sqlreflect.sql.entry.Argument;
 import usf.java.sqlreflect.sql.entry.Column;
 import usf.java.sqlreflect.sql.entry.Database;
